@@ -42,6 +42,7 @@ export class MapComponent {
     onMapReady(event) {
         console.log('Map Ready, retrieving pets...');
         this.mapView = event.object;
+        this.reloadMarkers();
     }
 
     reloadMarkers() {
