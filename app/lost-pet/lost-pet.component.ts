@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import * as app from "application";
+import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 
 @Component({
   selector: 'lost-pet',
@@ -8,5 +10,10 @@ import { Component } from '@angular/core';
 })
 export class LostPetComponent {
   constructor() {
+  }
+ 
+  onDrawerButtonTap(): void {
+    const sideDrawer = <RadSideDrawer>app.getRootView();
+    sideDrawer.showDrawer();
   }
 }
