@@ -9,6 +9,7 @@ import { LostPetsProviderService } from "./services/lost-pets-provider.service";
 import { LapkyServerService } from "./services/lapky-server.service";
 import { LostPetsRepository } from "./services/lost-pets-repository";
 import { LostPetsReporterService } from '~/services/lost-pets-reporter.service';
+import { LostPetComponent } from '~/lost-pet/lost-pet.component';
 
 @NgModule({
     bootstrap: [
@@ -22,7 +23,8 @@ import { LostPetsReporterService } from '~/services/lost-pets-reporter.service';
     ],
     declarations: [
         AppComponent,
-        MapComponent
+        MapComponent,
+        LostPetComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

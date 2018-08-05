@@ -60,9 +60,6 @@ export class MapComponent {
         this.mapView.addMarker(marker);
     }
 
-    addNewPet(args) {
-    }
-
     onCoordinateTapped(args) {
         console.log("Coordinate Tapped, Lat: " + args.position.latitude + ", Lon: " + args.position.longitude, args);
 
