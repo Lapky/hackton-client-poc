@@ -4,6 +4,8 @@ import { PetType } from '~/models/pet-type';
 import { SpatialLocation } from '~/models/spatial-location';
 import { Guid } from "guid-typescript";
 import { LostPetsReporterService } from '~/services/lost-pets-reporter.service';
+import * as app from "application";
+import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 
 @Component({
   selector: 'lost-pet',
@@ -25,5 +27,10 @@ export class LostPetComponent {
     //lostPet.lastSeenLocation.longtitude  = args.position.longitude;
 
     this.lostPetsReporterService.report(lostPet);
+  }
+ 
+  onDrawerButtonTap(): void {
+    const sideDrawer = <RadSideDrawer>app.getRootView();
+    sideDrawer.showDrawer();
   }
 }
