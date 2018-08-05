@@ -1,24 +1,33 @@
 import { Component, OnInit } from "@angular/core";
 import * as app from "application";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
+import { Slider } from "ui/slider";
 
 @Component({
-    selector: "Home",
+    selector: "Settings",
     moduleId: module.id,
-    templateUrl: "./settings.component.html"
-})
-export class SettingsComponent implements OnInit {
+    templateUrl: "./settings.component.html",
+    styleUrls: ["./settings.component.css"]
 
-    constructor() {
-        // Use the component constructor to inject providers.
-    }
+})
+
+export class SettingsComponent implements OnInit {
+    public currentValue;
+
+
+constructor() {
+}
 
     ngOnInit(): void {
-        // Init your component properties here.
-    }
+        this.currentValue=5;
+        }
 
     onDrawerButtonTap(): void {
         const sideDrawer = <RadSideDrawer>app.getRootView();
         sideDrawer.showDrawer();
+    }
+    public onSliderValueChange(args) {
+        let slider = <Slider>args.object;
+        this.currentValue = slider.value;
     }
 }

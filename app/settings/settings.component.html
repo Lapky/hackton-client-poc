@@ -6,7 +6,19 @@
 	</ActionItem>
 </ActionBar>
 
-<GridLayout class="page page-content" tkMainContent>
-	<Label class="page-icon fa" text="&#xf015;"></Label>
-	<Label class="page-placeholder" text="Welcome"></Label>
-</GridLayout>
+
+<GridLayout>
+		<ScrollView class="page">
+			<StackLayout class="home-panel">
+				<!--Add your page content here-->
+				<Label fontSize="24" text="רדיוס עדכונים (בק''מ)"></Label>
+				<Slider value="5" (valueChange)="onSliderValueChange($event)"></Slider>
+				<Label text ={{currentValue}}></Label>
+
+				<Label textWrap="true" text="הגדרות" class="h2 description-label"></Label>
+				<Label text="התראות חיות במצוקה בלבד"></Label>
+				<Switch checked="false"></Switch>
+			</StackLayout>
+		</ScrollView>
+	</GridLayout>
+
