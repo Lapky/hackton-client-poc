@@ -6,17 +6,15 @@
         </ActionItem>
 
     </ActionBar>
-<GridLayout>
+<GridLayout >
     <MapView #mapView [latitude]="latitude" [longitude]="longitude" 
              [zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom" [bearing]="bearing"
              [tilt]="tilt" i-padding="50,50,50,50" [padding]="padding" (mapReady)="onMapReady($event)"
              (markerSelect)="onMarkerEvent($event)" (markerBeginDragging)="onMarkerEvent($event)"
              (markerEndDragging)="onMarkerEvent($event)" (markerDrag)="onMarkerEvent($event)"
              (markerInfoWindowTapped)="onMarkerEvent($event)" (coordinateTapped)="onCoordinateTapped($event)"
-             (cameraChanged)="onCameraChanged($event)"></MapView>             
-            <AbsoluteLayout>
-                <Button class="add-action-button" text="+" bottom="1" right="1" ></Button>
-            </AbsoluteLayout>
+             (cameraChanged)="onCameraChanged($event)" ></MapView>  
+             <DockLayout>
+             <FAB (tap)="fabTap()" icon="res://ic_add_white" rippleColor="#f1f1f1" class="fab-button"></FAB>
+            </DockLayout>
 </GridLayout>
-
-<!--icon="res://ic_add_white" --> 
