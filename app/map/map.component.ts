@@ -25,7 +25,7 @@ export class MapComponent {
     bearing = 0;
     tilt = 0;
     padding = [40, 40, 40, 40];
-    mapView: MapView;
+    mapView: MapView & { infoWindowTemplates: string };
     lastCamera: String;
 
     constructor(private lostPetsProviderService: LostPetsProviderService) {        
@@ -40,6 +40,14 @@ export class MapComponent {
     onMapReady(event) {
         console.log('Map Ready, retrieving pets...');
         this.mapView = event.object;
+        this.mapView.infoWindowTemplates = `        <template key="lostPet">
+        <StackLayout orientation="vertical" width="160" height="160" >
+            <Image src="https://drmartybecker.com/wp-content/uploads/2017/03/bigstock-Mixed-Breed-Dog-Looking-Sidewa-136323740.jpg" stretch="fill"  height="100" width="100" className="infoWindowImage"></Image>
+            <Label text="{{title}}" className="title" width="125" ></Label>
+            <Label text="{{snippet}}" className="breed" width="125"   ></Label>
+            <Label text="{{lastSeen}}" className="last-seen" width="125"   ></Label>                
+        </StackLayout>
+    </template>`;
         this.reloadMarkers();
     }
 
@@ -49,11 +57,12 @@ export class MapComponent {
     }
 
     petToMarker(pet : LostPet) {
-        console.log("RECEIVED LOST PET! " + pet.name)
+        console.log("RECEIVED LOST PET! " + pet.name)        
         var marker = new Marker();
         marker.position = Position.positionFromLatLng(pet.lastSeenLocation.latitude, pet.lastSeenLocation.longtitude);
-        marker.title = pet.type + " " + pet.name;
-        marker.snippet = pet.breed;
+        marker.title = pet.name + " (" + pet.type + ")";
+        marker.snippet = "Breed: " + pet.breed;
+        marker.infoWindowTemplate = "lostPet";
         marker.userData = {index: 1};
 
         this.mapView.addMarker(marker);
