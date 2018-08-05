@@ -28,10 +28,13 @@ export class MapComponent {
     mapView: MapView;
     lastCamera: String;
 
-    constructor(private lostPetsProviderService: LostPetsProviderService) {
+    constructor(private lostPetsProviderService: LostPetsProviderService) {        
     }
 
     async ngOnInit() {
+        const sideDrawer = <RadSideDrawer>app.getRootView();
+        if (sideDrawer)
+            sideDrawer.closeDrawer();
     }
 
     onMapReady(event) {

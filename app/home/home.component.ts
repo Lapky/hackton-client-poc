@@ -14,7 +14,9 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // Init your component properties here.
+        const sideDrawer = <RadSideDrawer>app.getRootView();
+        if (sideDrawer)
+            sideDrawer.closeDrawer();
     }
 
     onDrawerButtonTap(): void {
