@@ -1,11 +1,14 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, OnInit} from '@angular/core';
 import * as app from "application";
 import { registerElement } from 'nativescript-angular/element-registry';
 import { MapView, Marker, Position } from 'nativescript-google-maps-sdk';
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
-// Important - must register MapView plugin in order to use in Angular templates
-registerElement('MapView', () => MapView);
+import { Fab } from "nativescript-floatingactionbutton";
+import { LostPetsProviderService } from "../services/lost-pets-provider.service";
 
+registerElement("Fab", () => Fab);
+registerElement('MapView', () => MapView);
+ 
 @Component({
     moduleId: module.id,
     selector: 'map',
@@ -13,24 +16,27 @@ registerElement('MapView', () => MapView);
     styleUrls: ['map.css'],
 })
 export class MapComponent {
-
-    latitude =  -33.86;
-    longitude = 151.20;
-    zoom = 8;
+    latitude =  32.0672359;
+    longitude = 34.7947387;
+    zoom = 18;
     minZoom = 0;
     maxZoom = 22;
     bearing = 0;
     tilt = 0;
     padding = [40, 40, 40, 40];
     mapView: MapView;
-
     lastCamera: String;
 
-    constructor() {
-    
+    constructor(private lostPetsProviderService: LostPetsProviderService) {
     }
 
-    //Map events
+    async ngOnInit() {
+        console.log("2222");
+
+        var response = await this.lostPetsProviderService.getLostPetsInArea().toPromise();
+        console.log("RITAAA", JSON.stringify(response));
+    }
+
     onMapReady(event) {
         console.log('Map Ready');
 
@@ -59,10 +65,11 @@ export class MapComponent {
     onCameraChanged(args) {
         console.log("Camera changed: " + JSON.stringify(args.camera), JSON.stringify(args.camera) === this.lastCamera);
         this.lastCamera = JSON.stringify(args.camera);
+    
     }
     onDrawerButtonTap(): void {
         const sideDrawer = <RadSideDrawer>app.getRootView();
         sideDrawer.showDrawer();
     }
-
+ 
 }
