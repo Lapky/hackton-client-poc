@@ -11,6 +11,7 @@ import { LostPetsRepository } from "./services/lost-pets-repository";
 import { LostPetsReporterService } from '~/services/lost-pets-reporter.service';
 import { LostPetComponent } from '~/lost-pet/lost-pet.component';
 import { SosReportComponent } from '~/sos-report/sos-report.component';
+import { OrganizationsComponent } from '~/organizations/organizations.component';
 
 @NgModule({
     bootstrap: [
@@ -26,7 +27,8 @@ import { SosReportComponent } from '~/sos-report/sos-report.component';
         AppComponent,
         MapComponent,
         LostPetComponent,
-        SosReportComponent
+        SosReportComponent,
+        OrganizationsComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
