@@ -5,6 +5,7 @@ import { MapView, Marker, Position } from 'nativescript-google-maps-sdk';
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { Fab } from "nativescript-floatingactionbutton";
 import { LostPetsProviderService } from "../services/lost-pets-provider.service";
+import { LostPet } from '~/models/lost-pet';
 
 registerElement("Fab", () => Fab);
 registerElement('MapView', () => MapView);
@@ -31,24 +32,21 @@ export class MapComponent {
     }
 
     async ngOnInit() {
-        console.log("2222");
-
-        var response = await this.lostPetsProviderService.getLostPetsInArea().toPromise();
-        console.log("RITAAA", JSON.stringify(response));
     }
 
     onMapReady(event) {
-        console.log('Map Ready');
-
+        console.log('Map Ready, retrieving pets...');
         this.mapView = event.object;
+        this.lostPetsProviderService.getLostPetsInArea().subscribe(lostPet => this.petToMarker(lostPet));
+    }
 
-        console.log("Setting a marker...");
-
+    petToMarker(pet : LostPet) {
         var marker = new Marker();
-        marker.position = Position.positionFromLatLng(-33.86, 151.20);
-        marker.title = "Sydney";
-        marker.snippet = "Australia";
+        marker.position = Position.positionFromLatLng(pet.lastSeenLocation.latitude, pet.lastSeenLocation.longtitude);
+        marker.title = pet.type + " " + pet.name;
+        marker.snippet = pet.breed;
         marker.userData = {index: 1};
+
         this.mapView.addMarker(marker);
     }
 
