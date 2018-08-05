@@ -15,12 +15,9 @@
              (markerInfoWindowTapped)="onMarkerEvent($event)" (coordinateTapped)="onCoordinateTapped($event)"
              (cameraChanged)="onCameraChanged($event)" ></MapView>  
              <DockLayout>
-             <FAB (tap)="fabTap()" icon="res://ic_launcher" rippleColor="#f1f1f1" class="lostdog"></FAB>
-            </DockLayout> 
-            <DockLayout>
- 
-             <FAB (tap)="fabTap()"  icon ="res://sos_button"rippleColor="#f1f1f1" class="sos"></FAB>
-
-            </DockLayout>
-
+                <FAB icon="res://ic_launcher" rippleColor="#f1f1f1" class="lostdog" [nsRouterLink]="['/lost-pet']"></FAB>
+             </DockLayout>
+             <DockLayout>
+                <FAB icon="res://sos_button" rippleColor="#f1f1f1" class="sos" [nsRouterLink]="['/sos-report']"></FAB>
+             </DockLayout>
 </GridLayout>

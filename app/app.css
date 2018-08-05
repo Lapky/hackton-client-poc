@@ -2,6 +2,7 @@
 
 .fa {
     font-family: "FontAwesome";
+    background-color: green;
 }
 
 .page-content .page-placeholder {
@@ -18,7 +19,7 @@
     margin-top: 20%;
 }
 
-.sidedrawer {
+.sidedrawer { 
     margin-bottom: -100;
 }
 .sidedrawer-list-item-icon,.sidedrawer-list-item{
