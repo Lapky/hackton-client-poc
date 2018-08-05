@@ -5,6 +5,7 @@ import { MapComponent} from "./map/map.component"
 const routes: Routes = [
     { path: "", redirectTo: "/map", pathMatch: "full" },
     { path: "home", loadChildren: "./home/home.module#HomeModule" },
+    { path: "settings", loadChildren: "./setings/setings.module#SettingsModule" },
     { path: 'map', component: MapComponent}
 ];
 

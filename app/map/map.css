@@ -8,12 +8,22 @@
     height: 5;
     vertical-align: bottom; 
 }
-.fab-button {
+.lostdog {
     height: 70;
     width: 70; 
     margin-top: 80%;
     margin-right: 5%;
     background-color: #ff4081; 
+    horizontal-align: right; 
+    vertical-align: bottom !important; 
+
+}
+.sos {
+    height: 70;
+    width: 70; 
+    margin-top: 55%;
+    margin-right: 5%;
+    background-color: red; 
     horizontal-align: right; 
     vertical-align: bottom !important; 
 
