@@ -8,6 +8,7 @@ import { MapComponent } from "./map/map.component";
 import { LostPetsProviderService } from "./services/lost-pets-provider.service";
 import { LapkyServerService } from "./services/lapky-server.service";
 import { LostPetsRepository } from "./services/lost-pets-repository";
+import { LostPetsReporterService } from '~/services/lost-pets-reporter.service';
 
 @NgModule({
     bootstrap: [
@@ -29,6 +30,7 @@ import { LostPetsRepository } from "./services/lost-pets-repository";
     providers: [
         LapkyServerService,
         LostPetsProviderService,
+        LostPetsReporterService,
         LostPetsRepository
     ]
 })

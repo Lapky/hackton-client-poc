@@ -6,6 +6,10 @@ import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { Fab } from "nativescript-floatingactionbutton";
 import { LostPetsProviderService } from "../services/lost-pets-provider.service";
 import { LostPet } from '~/models/lost-pet';
+import { LostPetsReporterService } from '~/services/lost-pets-reporter.service';
+import { PetType } from '~/models/pet-type';
+import { SpatialLocation } from '~/models/spatial-location';
+import { Guid } from "guid-typescript";
 
 registerElement("Fab", () => Fab);
 registerElement('MapView', () => MapView);
@@ -28,7 +32,8 @@ export class MapComponent {
     mapView: MapView;
     lastCamera: String;
 
-    constructor(private lostPetsProviderService: LostPetsProviderService) {
+    constructor(private lostPetsProviderService: LostPetsProviderService,
+                private lostPetsReporterService : LostPetsReporterService) {
     }
 
     async ngOnInit() {
@@ -37,10 +42,15 @@ export class MapComponent {
     onMapReady(event) {
         console.log('Map Ready, retrieving pets...');
         this.mapView = event.object;
+    }
+
+    reloadMarkers() {
+        this.mapView.removeAllMarkers();
         this.lostPetsProviderService.getLostPetsInArea().subscribe(lostPet => this.petToMarker(lostPet));
     }
 
     petToMarker(pet : LostPet) {
+        console.log("RECEIVED LOST PET! " + pet.name)
         var marker = new Marker();
         marker.position = Position.positionFromLatLng(pet.lastSeenLocation.latitude, pet.lastSeenLocation.longtitude);
         marker.title = pet.type + " " + pet.name;
@@ -50,8 +60,24 @@ export class MapComponent {
         this.mapView.addMarker(marker);
     }
 
+    addNewPet(args) {
+    }
+
     onCoordinateTapped(args) {
         console.log("Coordinate Tapped, Lat: " + args.position.latitude + ", Lon: " + args.position.longitude, args);
+
+        console.log("ADDING")
+        var lostPet = new LostPet();
+        lostPet.type = PetType.dog;
+        lostPet.name = "papi " + Guid.create();
+        lostPet.lastSeenLocation = new SpatialLocation();
+        lostPet.lastSeenLocation.latitude = args.position.latitude;
+        lostPet.lastSeenLocation.longtitude  = args.position.longitude;
+
+        this.lostPetsReporterService.report(lostPet);
+
+        console.log('PET ADDED!!');
+        this.reloadMarkers();
     }
 
     onMarkerEvent(args) {

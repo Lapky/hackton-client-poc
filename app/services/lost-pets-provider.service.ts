@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { LapkyServerService } from './lapky-server.service';
-import { Observable } from 'rxjs';
-import { from } from 'rxjs';
 import { LostPet } from '~/models/lost-pet';
 import { LostPetsRepository } from '~/services/lost-pets-repository';
+import { Observable } from 'rxjs';
+import { from } from 'rxjs';
 
 @Injectable()
 export class LostPetsProviderService {
