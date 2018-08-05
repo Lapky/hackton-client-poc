@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import * as app from "application";
+import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 
 @Component({
   selector: 'sos-report',
@@ -9,4 +11,9 @@ import { Component } from '@angular/core';
 export class SosReportComponent {
   constructor() {
   }
+
+  onDrawerButtonTap(): void {
+    const sideDrawer = <RadSideDrawer>app.getRootView();
+    sideDrawer.showDrawer();
+  }  
 }
