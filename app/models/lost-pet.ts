@@ -13,7 +13,7 @@ export class LostPet {
     lastUpdateTime: Date;
     ownerName: string;
     ownerEmail: string;
-    ownerPhoneNumber: number;
+    ownerPhoneNumber: string;
     pictures: Array<string>;
     picturesBase64: Array<string>;
     lastSeenLocation: SpatialLocation;
@@ -30,7 +30,7 @@ export class LostPet {
         // this.lastUpdateTime = new Date();
         this.ownerName = "";
         this.ownerEmail = "";
-        this.ownerPhoneNumber = 0;
+        this.ownerPhoneNumber = "";
         this.pictures = ["", "", "", "", ""];//new Array<string>();
         this.picturesBase64 = ["", "", "", "", ""];//new Array<string>();
         // this.lastSeenLocation = new SpatialLocation();
