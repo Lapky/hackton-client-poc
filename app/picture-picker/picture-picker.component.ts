@@ -14,7 +14,7 @@ import { Image } from '../../node_modules/tns-core-modules/ui/image/image';
 export class PicturePickerComponent {
     private mediafilepicker: Mediafilepicker;
     @ViewChild("selectedImage") selectedImageRef: ElementRef;
-    @Output() imageSelect:EventEmitter<string> = new EventEmitter();
+    @Output() imageSelect:EventEmitter<any> = new EventEmitter();
 
     constructor() {
         this.mediafilepicker = new Mediafilepicker();
@@ -48,7 +48,7 @@ export class PicturePickerComponent {
                 let selectedImage = <Image>self.selectedImageRef.nativeElement;
                 selectedImage.src = null;
                 selectedImage.imageSource = imageSource;
-                self.imageSelect.next(base64);
+                self.imageSelect.next({base64, src:file});
             } else {
                 console.log("There was some problem to select the file. Looks like user has cancel it.")
             }

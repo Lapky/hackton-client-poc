@@ -6,7 +6,7 @@ import { Guid } from "guid-typescript";
 import { LostPetsReporterService } from '~/services/lost-pets-reporter.service';
 import * as app from "application";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
-import { MapView } from 'nativescript-google-maps-sdk';
+import { MapView, Marker } from 'nativescript-google-maps-sdk';
 
 @Component({
   selector: 'lost-pet',
@@ -17,7 +17,7 @@ import { MapView } from 'nativescript-google-maps-sdk';
 export class LostPetComponent implements OnInit {
   private _lostPet: LostPet;
 
-  latitude =  32.0672359;
+  latitude = 32.0672359;
   longitude = 34.7947387;
   zoom = 18;
   minZoom = 0;
@@ -28,9 +28,9 @@ export class LostPetComponent implements OnInit {
   mapView: MapView & { infoWindowTemplates: string };
   lastCamera: String;
 
-  
+
   constructor(private lostPetsReporterService: LostPetsReporterService) {
-    
+
   }
 
   ngOnInit(): void {
@@ -42,7 +42,7 @@ export class LostPetComponent implements OnInit {
   }
   onMapReady(event) {
     console.log('Map Ready, retrieving pets...');
-    this.mapView = event.object; 
+    this.mapView = event.object;
   }
 
   onTap(value: string): void {
@@ -51,6 +51,9 @@ export class LostPetComponent implements OnInit {
 
   addPet() {
     console.log(this.lostPet)
+    this.lostPet.lastSeenLocation = new SpatialLocation();
+    this.lostPet.lastSeenLocation.latitude = 32.0675697;
+    this.lostPet.lastSeenLocation.longtitude = 34.7936282
     this.lostPetsReporterService.report(this.lostPet);
   }
 
@@ -59,8 +62,21 @@ export class LostPetComponent implements OnInit {
     sideDrawer.showDrawer();
   }
 
-  setPicture(pictureBase64, index) {
-    console.log("GOT PICTURE", pictureBase64)
-    this.lostPet.picturesBase64[index] = pictureBase64;
+  setPicture(pictureData, index) {
+    this.lostPet.picturesBase64[index] = pictureData.base64;
+    this.lostPet.pictures[index] = pictureData.src;
+  }
+
+  onCoordinateTapped(args) {
+this.lostPet.since = "?????";
+    this.lostPet.lastSeenLocation = new SpatialLocation();
+    this.lostPet.lastSeenLocation.latitude = args.position.latitude;
+    this.lostPet.lastSeenLocation.longtitude = args.position.longitude;
+    console.log("lastSeenLocation", this.lostPet.lastSeenLocation)
+
+    this.mapView.removeAllMarkers();
+    var marker = new Marker();
+    marker.position = args.position;
+    this.mapView.addMarker(marker);
   }
 }

@@ -102,7 +102,8 @@ export class MapComponent {
     }
 
     petToMarker(pet : LostPet) {
-        console.log("RECEIVED LOST PET! " + pet.name)        
+        console.log("RECEIVED LOST PET! ", pet)       
+        console.log("pet.lastSeenLocation", pet.lastSeenLocation) 
         var marker = new Marker();        
         marker.position = Position.positionFromLatLng(pet.lastSeenLocation.latitude, pet.lastSeenLocation.longtitude);        
         marker.infoWindowTemplate = "lostPet";

@@ -3,6 +3,7 @@ import * as app from "application";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { SosReport } from '~/models/sos-report';
 import { SosReporterService } from '~/services/sos-reporter.service';
+import { SpatialLocation } from '~/models/spatial-location';
 
 @Component({
     selector: 'sos-report',
@@ -35,11 +36,15 @@ export class SosReportComponent {
 
     addReport() {
         console.log(this.sosReport)
+        this.sosReport.lastSeenLocation = new SpatialLocation();
+        this.sosReport.lastSeenLocation.latitude = 32.0675697;
+        this.sosReport.lastSeenLocation.longtitude = 34.7936282
         this.sosReporterService.report(this.sosReport);
     }
 
-    setPicture(pictureBase64, index) {
-        console.log("GOT PICTURE", pictureBase64)
-        this.sosReport.picturesBase64[index] = pictureBase64;
+    setPicture(pictureData, index) {
+        console.log("GOT PICTURE", pictureData.base64)
+        this.sosReport.picturesBase64[index] = pictureData.base64;
+        this.sosReport.pictures[index] = pictureData.src;
     }
 }
