@@ -30,17 +30,17 @@ exports.handler = (event, context, callback) => {
     };
 
     const body = (typeof event.body === 'string' ? JSON.parse(event.body) : event.body);
-    //console.log("BODY", body);
+    let promise = null;
 
     switch (event.queryStringParameters.action) {
         case 'lost-pet':
-            processCrudAction({ verb: event.httpMethod, query: event.queryStringParameters, body, collection: 'lost_pets', done });
+            promise = processCrudActionAsync({ verb: event.httpMethod, query: event.queryStringParameters, body, collectionName: 'lost_pets' });
             break;
         case 'found-pet':
-            processCrudAction({ verb: event.httpMethod, query: event.queryStringParameters, body, collection: 'found_pets', done });
+            promise = processCrudActionAsync({ verb: event.httpMethod, query: event.queryStringParameters, body, collectionName: 'found_pets' });
             break;
         case 'sos-request':
-            processCrudAction({ verb: event.httpMethod, query: event.queryStringParameters, body, collection: 'sos_requests', done });
+            promise = processCrudActionAsync({ verb: event.httpMethod, query: event.queryStringParameters, body, collectionName: 'sos_requests' });
             break;
         case 'bump-found-pet':
             break;
@@ -49,52 +49,74 @@ exports.handler = (event, context, callback) => {
         default:
             done(new Error(`invalid action: ${event.queryStringParameters.action}.`));
     }
+
+    if (promise) {
+        promise.then(
+            res => done(null, res), 
+            err => done(err)
+        );
+    }
 };
 
-function processCrudAction({ verb, query, body, collection, done }) {
-    console.log(`processing verb ${verb} on collection ${collection}`);
+async function processCrudActionAsync({ verb, query, body, collectionName }) {
+    console.log(`processing verb ${verb} on collection ${collectionName}`);
 
-    MongoClient.connect(db_connection_uri, { useNewUrlParser: true }, function (err, client) {
-        const db = client.db('lapky');
+    const client = await MongoClient.connect(db_connection_uri, { useNewUrlParser: true });
+    const db = client.db('lapky');
 
+    let result = null;
+
+    try {
         switch (verb) {
             case 'GET':
-                db.collection(collection).find({}).toArray(function (err, result) {
-                    client.close();
-                    done(err, result);
-                });
+                result = await db.collection(collectionName).find({}).toArray();
                 break;
             case 'POST':
                 body._id = new ObjectID();
                 if (body.pictures) {
-                    uploadPictures(body.pictures);
+                    await uploadPicturesAsync(body.pictures);
                 }
-                db.collection(collection).insertOne(body, function (err, result) {
-                    client.close();
-                    done(err, body._id);
-                });
+                await db.collection(collectionName).insertOne(body);
+                result = body._id;
                 break;
         }
-    });
+    } finally {
+        client.close();
+    }
+
+    return result;
 }
 
-function uploadPictures(picturesArray, done) {
+async function uploadPicturesAsync(picturesArray, done) {
     const s3 = new AWS.S3();
 
-    for (let i = 0 ; i < picturesArray.length ; i++) {
+    for (let i = 0; i < picturesArray.length; i++) {
         const params = createFileParams(picturesArray[i]);
         picturesArray[i] = params.Key;
-        
-        s3.putObject(params, function (err, data) {
+
+        try {
+            await s3.putObject(params).promise();
+            console.log('S3 UPLOAD SUCCEEDED!');
+        } catch (err) {
+            console.log('S3 UPLOAD FAILED: ', err.message);
+        }
+    }
+}
+
+function connectToDbAsync() {
+
+    // Connection URL. This is where your mongodb server is running.
+    let url = constants.MONGODB_URI;
+    return new Promise((resolve, reject) => {
+        // Use connect method to connect to the Server
+        mongoClient.connect(url, (err, db) => {
             if (err) {
-                console.log('S3 UPLOAD FAILED: ', err.message);
-                done(err);
+                reject(err);
             } else {
-                console.log('S3 UPLOAD SUCCEEDED!');
-                done(null);
+                resolve(db);
             }
         });
-    }
+    });
 }
 
 function createFileParams(base64String) {
@@ -107,7 +129,7 @@ function createFileParams(base64String) {
     const filePath = hash + '/';
     const fileName = unixTime(now) + '.' + fileExt;
     const fileFullName = filePath + fileName;
-    
+
     console.log('PICTURE:', fileFullName);
 
     return {
