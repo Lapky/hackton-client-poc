@@ -14,5 +14,6 @@ export class LostPet {
     ownerEmail: string;
     ownerPhoneNumber: number;
     pictures: Array<string>;
-    lastSeenLocation: SpatialLocation
+    lastSeenLocation: SpatialLocation;
+    since: string;
 }

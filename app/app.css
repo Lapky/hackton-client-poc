@@ -1,3 +1,4 @@
+@import 'nativescript-theme-core/css/core.light.css';
 @import 'nativescript-theme-core/css/blue.css';
 
 .fa {
@@ -67,3 +68,15 @@
     color:#3A53FF;
 }
  
+.gavno-pet {
+    font-size: 20;
+    height: 120;   
+    width: 280; 
+    text-align: right;
+}
+
+.gavno-pet .infoWindowImage { max-width: 60; }
+
+.gavno-pet .section.name { font-weight: bold; font-size: 25; }
+.gavno-pet .section.details { margin-top: 10; margin-right: 20; color: dodgerblue; font-weight: bold; }
+.gavno-pet .section.share { margin-top: 10; color: dodgerblue; font-weight: bold; }
