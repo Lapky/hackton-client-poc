@@ -7,6 +7,7 @@ import { Fab } from "nativescript-floatingactionbutton";
 import { LostPetsProviderService } from "../services/lost-pets-provider.service";
 import { LostPet } from '~/models/lost-pet';
 import { Image } from 'tns-core-modules/ui/image/image';
+import { ImageSource } from 'tns-core-modules/image-source/image-source';
 
 registerElement("Fab", () => Fab);
 registerElement('MapView', () => MapView);
