@@ -6,7 +6,22 @@
 	</ActionItem>
 </ActionBar>
 
+
 <GridLayout class="page page-content" tkMainContent>
-	<Label class="page-icon fa" text="yes"></Label>
-	<Label class="page-placeholder" text="WHATSAAAAAAAAAAAAAAAAAP"></Label>
-</GridLayout>
+		<RadDataForm tkExampleTitle tkToggleNavButton [source]="somedata">
+			<TKPropertyGroup tkDataFormGroups name="מילוי פרטי חיה">
+			<TKEntityProperty tkDataFormProperty name="name" displayName="שם" index="0" ></TKEntityProperty>
+			<TKEntityProperty tkDataFormProperty name="color" displayName="צבע" index="1"></TKEntityProperty>
+			<TKEntityProperty tkDataFormProperty name="animalType" displayName="סוג" index="2"></TKEntityProperty>
+			<TKEntityProperty tkPropertyGroupProperties name="picker"  (tap)='onTap("זכר") '[valuesProvider]="values" displayName="מין"  >
+			<TKPropertyEditor tkEntityPropertyEditor type="Picker" index="3" ></TKPropertyEditor>
+			</TKEntityProperty>
+			<TKEntityProperty tkDataFormProperty name="desc" index="4" displayName="תיאור" ></TKEntityProperty>
+			<TKEntityProperty tkDataFormProperty name="pname" index="5" displayName="שם פרטי"></TKEntityProperty>
+			<TKEntityProperty tkDataFormProperty name="pnumber" index="6" displayName="טלפון"></TKEntityProperty>
+			<TKEntityProperty tkDataFormProperty name="email" index="7" displayName="אימייל"></TKEntityProperty>
+			<TKEntityProperty tkDataFormProperty name="anotherdesc" index="8" displayName="פרטים נוספים"></TKEntityProperty>
+			</TKPropertyGroup>
+		</RadDataForm>
+	</GridLayout>
+

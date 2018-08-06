@@ -14,6 +14,14 @@ import { SosReportComponent } from '~/sos-report/sos-report.component';
 import { OrganizationsComponent } from '~/organizations/organizations.component';
 import { OrganizationsRepository } from "~/organizations/organizations-repository";
 
+import { NativeScriptCommonModule } from "nativescript-angular/common";
+import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
+import { NativeScriptUICalendarModule } from "nativescript-ui-calendar/angular";
+import { NativeScriptUIChartModule } from "nativescript-ui-chart/angular";
+import { NativeScriptUIDataFormModule } from "nativescript-ui-dataform/angular";
+import { NativeScriptUIAutoCompleteTextViewModule } from "nativescript-ui-autocomplete/angular";
+import { NativeScriptFormsModule } from "nativescript-angular/forms";
+
 @NgModule({
     bootstrap: [
         AppComponent
@@ -22,7 +30,14 @@ import { OrganizationsRepository } from "~/organizations/organizations-repositor
         AppRoutingModule,
         NativeScriptModule,
         NativeScriptUISideDrawerModule,
-        HttpClientModule
+        HttpClientModule,
+        NativeScriptCommonModule,
+        NativeScriptUIListViewModule,
+        NativeScriptUICalendarModule,
+        NativeScriptUIChartModule,
+        NativeScriptUIDataFormModule,
+        NativeScriptUIAutoCompleteTextViewModule,
+        NativeScriptFormsModule
     ],
     declarations: [
         AppComponent,
