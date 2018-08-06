@@ -6,45 +6,54 @@
 	</ActionItem>
 </ActionBar>
 
-<GridLayout class="page page-content" tkMainContent>
-	<RadDataForm tkExampleTitle [source]="lostPet">
-		<!-- <TKEntityProperty tkDataFormProperty name="exraComments" index="8" displayName="פרטים נוספים">
-			<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
-		</TKEntityProperty> -->
-		<TKEntityProperty tkDataFormProperty name="isLost" displayName="" index="0" valuesProvider="מצאתי את החיה, איבדתי את החיה"
-		 required="true">
-			<TKPropertyEditor tkEntityPropertyEditor type="SegmentedEditor"></TKPropertyEditor>
-		</TKEntityProperty>
-		<TKPropertyGroup tkDataFormGroups name="פרטי חיה" hidden="false">
-			<TKEntityProperty tkPropertyGroupProperties name="type" displayName="סוג" index="1" valuesProvider="כלב, חתול" required="true">
+<ScrollView>
+	<StackLayout class="page page-content" tkMainContent>
+		<RadDataForm tkExampleTitle [source]="lostPet">
+			<TKEntityProperty tkDataFormProperty name="isLost" displayName="" index="0" valuesProvider="מצאתי את החיה, איבדתי את החיה"
+			 required="true">
 				<TKPropertyEditor tkEntityPropertyEditor type="SegmentedEditor"></TKPropertyEditor>
 			</TKEntityProperty>
-			<TKEntityProperty tkPropertyGroupProperties name="name" displayName="שם" index="2" required="true">
-				<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
+			<TKPropertyGroup tkDataFormGroups name="פרטי חיה" hidden="false">
+				<TKEntityProperty tkPropertyGroupProperties name="type" displayName="סוג" index="1" valuesProvider="כלב, חתול" required="true">
+					<TKPropertyEditor tkEntityPropertyEditor type="SegmentedEditor"></TKPropertyEditor>
+				</TKEntityProperty>
+				<TKEntityProperty tkPropertyGroupProperties name="name" displayName="שם" index="2" required="true">
+					<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
+				</TKEntityProperty>
+				<TKEntityProperty tkPropertyGroupProperties name="color" displayName="צבע" index="3" required="true">
+					<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
+				</TKEntityProperty>
+				<TKEntityProperty tkPropertyGroupProperties name="breed" displayName="גזע" index="4">
+					<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
+				</TKEntityProperty>
+				<TKEntityProperty tkPropertyGroupProperties name="comments" displayName="תיאור" index="5">
+					<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
+				</TKEntityProperty>
+			</TKPropertyGroup>
+			<TKPropertyGroup tkDataFormGroups name="פרטים אישיים" hidden="false">
+				<TKEntityProperty tkPropertyGroupProperties name="ownerName" index="7" displayName="שם פרטי">
+					<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
+				</TKEntityProperty>
+				<TKEntityProperty tkPropertyGroupProperties name="ownerPhoneNumber" index="8" displayName="טלפון" required="true">
+					<TKPropertyEditor tkEntityPropertyEditor type="Number"></TKPropertyEditor>
+				</TKEntityProperty>
+				<TKEntityProperty tkPropertyGroupProperties name="ownerEmail" index="9" displayName="אימייל">
+					<TKPropertyEditor tkEntityPropertyEditor type="Email"></TKPropertyEditor>
+				</TKEntityProperty>
+			</TKPropertyGroup>
+			<TKEntityProperty tkDataFormProperty name="pictures" index="8" displayName="" hidden="true">
 			</TKEntityProperty>
-			<TKEntityProperty tkPropertyGroupProperties name="color" displayName="צבע" index="3" required="true">
-				<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
+			<TKEntityProperty tkDataFormProperty name="picturesBase64" index="9" displayName="" hidden="true">
 			</TKEntityProperty>
-			<TKEntityProperty tkPropertyGroupProperties name="breed" displayName="גזע" index="4">
-				<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
-			</TKEntityProperty>
-			<TKEntityProperty tkPropertyGroupProperties name="comments" displayName="תיאור" index="5">
-				<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
-			</TKEntityProperty>
-			<TKEntityProperty tkPropertyGroupProperties name="pictures" displayName="תמונות" index="6">
-				<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
-			</TKEntityProperty>
-		</TKPropertyGroup>
-		<TKPropertyGroup tkDataFormGroups name="פרטים אישיים" hidden="false">
-			<TKEntityProperty tkPropertyGroupProperties name="ownerName" index="7" displayName="שם פרטי">
-				<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
-			</TKEntityProperty>
-			<TKEntityProperty tkPropertyGroupProperties name="ownerPhoneNumber" index="8" displayName="טלפון" required="true">
-				<TKPropertyEditor tkEntityPropertyEditor type="Number"></TKPropertyEditor>
-			</TKEntityProperty>
-			<TKEntityProperty tkPropertyGroupProperties name="ownerEmail" index="9" displayName="אימייל">
-				<TKPropertyEditor tkEntityPropertyEditor type="Email"></TKPropertyEditor>
-			</TKEntityProperty>
-		</TKPropertyGroup>
-	</RadDataForm>
-</GridLayout>
+		</RadDataForm>
+		<Label text="הוסף תמונות של החיה"></Label>
+		<StackLayout orientation="horizontal">
+			<picture-picker [(selectedImageBase64)]="lostPet.picturesBase64[0]"></picture-picker>
+			<picture-picker [(selectedImageBase64)]="lostPet.picturesBase64[1]"></picture-picker>
+			<picture-picker [(selectedImageBase64)]="lostPet.picturesBase64[2]"></picture-picker>
+			<picture-picker [(selectedImageBase64)]="lostPet.picturesBase64[3]"></picture-picker>
+			<picture-picker [(selectedImageBase64)]="lostPet.picturesBase64[4]"></picture-picker>
+		</StackLayout>
+		<Button text="הוסף דיווח" (tap)="addPet()"></Button>
+	</StackLayout>
+</ScrollView>

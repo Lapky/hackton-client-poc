@@ -14,10 +14,10 @@ import { RadSideDrawer } from "nativescript-ui-sidedrawer";
   providers: []
 })
 export class LostPetComponent implements OnInit {
-  protected _lostPet: LostPet;
-  protected values = ['נקבה', 'זכר'];
+  private _lostPet: LostPet;
 
   constructor(private lostPetsReporterService: LostPetsReporterService) {
+    
   }
 
   ngOnInit(): void {
@@ -33,15 +33,7 @@ export class LostPetComponent implements OnInit {
   }
 
   addPet() {
-    console.log("ADDING")
-    var lostPet = new LostPet();
-    lostPet.type = PetType.dog;
-    lostPet.name = "papi " + Guid.create();
-    lostPet.lastSeenLocation = new SpatialLocation();
-    //lostPet.lastSeenLocation.latitude = args.position.latitude;
-    //lostPet.lastSeenLocation.longtitude  = args.position.longitude;
-
-    this.lostPetsReporterService.report(lostPet);
+    this.lostPetsReporterService.report(this.lostPet);
   }
 
   onDrawerButtonTap(): void {

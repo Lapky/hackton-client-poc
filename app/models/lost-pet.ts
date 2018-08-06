@@ -15,9 +15,9 @@ export class LostPet {
     ownerEmail: string;
     ownerPhoneNumber: number;
     pictures: Array<string>;
+    picturesBase64: Array<string>;
     lastSeenLocation: SpatialLocation;
     since: string;
-    image: string;
 
     constructor() {
         this.isLost = true;
@@ -31,7 +31,16 @@ export class LostPet {
         this.ownerName = "";
         this.ownerEmail = "";
         this.ownerPhoneNumber = 0;
-        // this.pictures = [];//new Array<string>();
+        this.pictures = ["", "", "", "", ""];//new Array<string>();
+        this.picturesBase64 = ["", "", "", "", ""];//new Array<string>();
         // this.lastSeenLocation = new SpatialLocation();
     }
+
+    public get image(): string {
+        return this.pictures[0];
+    }
+
+    public set image(value: string) {
+        this.pictures[0] = value;
+    } 
 }
