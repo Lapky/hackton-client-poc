@@ -10,6 +10,7 @@ import { Location } from '@angular/common';
     templateUrl: "app.component.html"
 })
 export class AppComponent implements OnInit {
+    
     private _sideDrawerTransition: DrawerTransitionBase;
 
     constructor(private routerExtensions: RouterExtensions,
@@ -26,7 +27,4 @@ export class AppComponent implements OnInit {
         return this._sideDrawerTransition;
     }
 
-    navTo() {
-        alert("Button clicked");
-      }
 }

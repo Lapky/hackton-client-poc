@@ -6,35 +6,31 @@ http://docs.telerik.com/devtools/nativescript-ui/Controls/NativeScript/SideDrawe
 <RadSideDrawer [drawerTransition]="sideDrawerTransition">
 	<GridLayout tkDrawerContent rows="auto, *" class="sidedrawer sidedrawer-left">
 		<StackLayout row="0" class="sidedrawer-header">
-			<Label class="sidedrawer-header-image fa" text="&#xf2bd;"></Label>
-			<Label class="sidedrawer-header-brand" text="User Name"></Label>
+			<Label class="sidedrawer-header-image fa " text="&#xf2bd;"></Label>
+			<Label class="sidedrawer-header-brand " text="User Name"></Label>
 			<Label class="footnote" text="username@mail.com"></Label>
 		</StackLayout>
 
 		<ScrollView row="1">
 			<StackLayout class="sidedrawer-content">
-				<GridLayout columns="auto, *" class="sidedrawer-list-item" [nsRouterLink]="['/home']">
-					<Label col="0" text="&#xf015;" class="fa"></Label>
-					<Label col="1" text="Home" class="p-r-10"></Label>
-				</GridLayout>
 
 				<GridLayout columns="auto, *" class="sidedrawer-list-item" [nsRouterLink]="['/map']"  >
 					<a >
-					<Label col="0" text="&#xf1ea;" class="fa"></Label>
-					<Label col="1" text="Map" class="p-r-10" ></Label>
+					<Label col="0" text="&#xf124;" class="fa"></Label>
+					<Label col="1" text="מפת חיות" class="p-r-10" ></Label>
 					</a>
 				</GridLayout>
 
 				<GridLayout columns="auto, *" class="sidedrawer-list-item" [nsRouterLink]="['/organizations']">
-					<Label col="0" text="&#xf015;" class="fa"></Label>
-					<Label col="1" text="Organizations" class="p-r-10"></Label>
+					<Label col="0" text="&#xf05a;" class="fa"></Label>
+					<Label col="1" text="עמותות" class="p-r-10"></Label>
 				</GridLayout>
-				<!--
+		
 				<GridLayout columns="auto, *" class="sidedrawer-list-item">
-					<Label col="0" text="&#xf002;" class="fa"></Label>
-					<Label col="1" text="Search" class="p-r-10"></Label>
+					<Label col="0" text="&#xf1b0;" class="fa"></Label>
+					<Label col="1" text="חיות אבודות" class="p-r-10"></Label>
 				</GridLayout>
-
+		<!--
 				<GridLayout columns="auto, *" class="sidedrawer-list-item">
 					<Label col="0" text="&#xf005;" class="fa"></Label>
 					<Label col="1" text="Featured" class="p-r-10"></Label>
@@ -44,7 +40,7 @@ http://docs.telerik.com/devtools/nativescript-ui/Controls/NativeScript/SideDrawe
 
 				<GridLayout columns="auto, *" class="sidedrawer-list-item" [nsRouterLink]="['/settings']">
 					<Label col="0" text="&#xf013;" class="fa"></Label>
-					<Label col="1" text="Settings" class="p-r-10"></Label>
+					<Label col="1" text="הגדרות" class="p-r-10"></Label>
 				</GridLayout>
 				
 			</StackLayout>
