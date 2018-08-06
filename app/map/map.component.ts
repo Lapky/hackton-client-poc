@@ -6,6 +6,7 @@ import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { Fab } from "nativescript-floatingactionbutton";
 import { LostPetsProviderService } from "../services/lost-pets-provider.service";
 import { LostPet } from '~/models/lost-pet';
+import { Image } from 'tns-core-modules/ui/image/image';
 
 registerElement("Fab", () => Fab);
 registerElement('MapView', () => MapView);
@@ -40,9 +41,10 @@ export class MapComponent {
     onMapReady(event) {
         console.log('Map Ready, retrieving pets...');
         this.mapView = event.object;
+
         this.mapView.infoWindowTemplates = `<template key="lostPet" class="gavno-pet">
 		<GridLayout class="gavno-pet" columns="110, *, auto" rows="auto, auto, 1, auto">
-			<Image src="https://images.pexels.com/photos/407082/dog-face-labrador-smile-407082.jpeg?auto=compress&cs=tinysrgb&h=150"
+			<Image src="{{userData.image}}"
 			 rowSpan="4" height="120" margin="3" verticalAlignment="top" className="infoWindowImage"></Image>
 			<Label text="{{userData.name}}" className="section name" width="auto" col="1" colSpan="2"></Label>			
 			<Label text="{{userData.since}}" className="section since" width="auto" row="1" col="1" colSpan="2"></Label>
@@ -69,8 +71,13 @@ export class MapComponent {
             breed: pet.breed,
             name: pet.name,
             type: pet.type,
-            since: pet.since
-        };
+            since: pet.since,
+            image: pet.image
+        };/*
+        var icon = new Image();
+        //icon.src = "res://marker_lost";
+        icon.src = "https://www.shareicon.net/data/256x256/2015/09/22/644827_gps_512x512.png";
+        marker.icon = icon;*/
 
         this.mapView.addMarker(marker);
     }
