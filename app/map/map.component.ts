@@ -7,6 +7,7 @@ import { Fab } from "nativescript-floatingactionbutton";
 import { LostPetsProviderService } from "../services/lost-pets-provider.service";
 import { LostPet } from '~/models/lost-pet';
 import { Image } from 'tns-core-modules/ui/image/image';
+import { ImageSource } from 'tns-core-modules/image-source/image-source';
 
 registerElement("Fab", () => Fab);
 registerElement('MapView', () => MapView);
@@ -73,11 +74,11 @@ export class MapComponent {
             type: pet.type,
             since: pet.since,
             image: pet.image
-        };/*
+        };
         var icon = new Image();
-        //icon.src = "res://marker_lost";
-        icon.src = "https://www.shareicon.net/data/256x256/2015/09/22/644827_gps_512x512.png";
-        marker.icon = icon;*/
+        icon.imageSource = new ImageSource();
+        icon.imageSource.fromResource("marker_lost");                
+        marker.icon = icon;
 
         this.mapView.addMarker(marker);
     }
