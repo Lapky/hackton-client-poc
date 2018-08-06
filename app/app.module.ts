@@ -5,15 +5,6 @@ import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angul
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { MapComponent } from "./map/map.component";
-import { LostPetsProviderService } from "./services/lost-pets-provider.service";
-import { LapkyServerService } from "./services/lapky-server.service";
-import { LostPetsRepository } from "./services/lost-pets-repository";
-import { LostPetsReporterService } from '~/services/lost-pets-reporter.service';
-import { LostPetComponent } from '~/lost-pet/lost-pet.component';
-import { SosReportComponent } from '~/sos-report/sos-report.component';
-import { OrganizationsComponent } from '~/organizations/organizations.component';
-import { OrganizationsRepository } from "~/organizations/organizations-repository";
-
 import { NativeScriptCommonModule } from "nativescript-angular/common";
 import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 import { NativeScriptUICalendarModule } from "nativescript-ui-calendar/angular";
@@ -21,6 +12,17 @@ import { NativeScriptUIChartModule } from "nativescript-ui-chart/angular";
 import { NativeScriptUIDataFormModule } from "nativescript-ui-dataform/angular";
 import { NativeScriptUIAutoCompleteTextViewModule } from "nativescript-ui-autocomplete/angular";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
+
+import { LostPetsProviderService } from "./services/lost-pets-provider.service";
+import { LapkyServerService } from "./services/lapky-server.service";
+import { LostPetsRepository } from "./services/lost-pets-repository";
+import { LostPetsReporterService } from '~/services/lost-pets-reporter.service';
+import { OrganizationsRepository } from "~/organizations/organizations-repository";
+
+import { LostPetComponent } from '~/lost-pet/lost-pet.component';
+import { SosReportComponent } from '~/sos-report/sos-report.component';
+import { PicturePickerComponent } from '~/picture-picker/picture-picker.component';
+import { OrganizationsComponent } from '~/organizations/organizations.component';
 
 @NgModule({
     bootstrap: [
@@ -44,7 +46,8 @@ import { NativeScriptFormsModule } from "nativescript-angular/forms";
         MapComponent,
         LostPetComponent,
         SosReportComponent,
-        OrganizationsComponent
+        OrganizationsComponent,
+        PicturePickerComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

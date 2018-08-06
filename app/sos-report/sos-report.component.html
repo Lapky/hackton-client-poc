@@ -6,7 +6,10 @@
 	</ActionItem>
 </ActionBar>
 
-<StackLayout>
-	<Button text="Take a Picture! 📷" class="btn btn-primary" marginTop="20" (tap)="takePicture()"></Button>
-	<Image [src]="pictureFromCamera"></Image>
+<StackLayout orientation="horizontal">
+	<picture-picker></picture-picker>
+	<picture-picker></picture-picker>
+	<picture-picker></picture-picker>
+	<picture-picker></picture-picker>
+	<picture-picker></picture-picker>
 </StackLayout>

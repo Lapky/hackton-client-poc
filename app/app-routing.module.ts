@@ -5,6 +5,7 @@ import { MapComponent} from "./map/map.component"
 import { LostPetComponent } from '~/lost-pet/lost-pet.component';
 import { SosReportComponent } from '~/sos-report/sos-report.component';
 import { OrganizationsComponent } from '~/organizations/organizations.component';
+import { PicturePickerComponent } from '~/picture-picker/picture-picker.component';
 
 const routes: Routes = [
     { path: "", redirectTo: "/map", pathMatch: "full" },
@@ -13,6 +14,7 @@ const routes: Routes = [
     { path: 'lost-pet', component: LostPetComponent },
     { path: 'sos-report', component: SosReportComponent },
     { path: 'organizations', component: OrganizationsComponent },
+    { path: 'picture-picker', component: PicturePickerComponent },
     { path: 'map', component: MapComponent}
 ];
 
