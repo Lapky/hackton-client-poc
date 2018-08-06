@@ -53,13 +53,47 @@ export class MapComponent {
 			<Label text="פרטים" className="section details" width="auto" row="3" col="1" ></Label>
 			<Label text="שיתוף" className="section share" width="auto" row="3" col="2" ></Label>
         </GridLayout>
-    </template>`;
+    </template><template key="sos" class="gavno-pet">
+    <GridLayout class="gavno-pet" columns="110, *, auto" rows="auto, auto, 1, auto">        
+        <Label text="מצוקה" className="section name" width="auto" col="1" colSpan="2"></Label>			
+        <Label text="{{userData.summary}}" className="section since" width="auto" row="1" col="1" colSpan="2"></Label>
+        <StackLayout col="1" row="2" backgroundColor="#E2E6EB"></StackLayout>
+        <Label text="פרטים" className="section details" width="auto" row="3" col="1" ></Label>
+        <Label text="שיתוף" className="section share" width="auto" row="3" col="2" ></Label>
+    </GridLayout>
+</template>`;
         this.reloadMarkers();
     }
 
     reloadMarkers() {
         this.mapView.removeAllMarkers();
         this.lostPetsProviderService.getLostPetsInArea().subscribe(lostPet => this.petToMarker(lostPet));
+
+        [{
+            latitude: 32.0674,
+            longtitude: 34.795,
+            summary: "חתול תקוע על עץ"
+        },
+        {
+            latitude: 32.06745,
+            longtitude: 34.796,
+            summary: "חתול בתוך בור ביוב"
+        },
+        ].forEach(sos => {
+            var marker = new Marker();        
+            marker.position = Position.positionFromLatLng(sos.latitude, sos.longtitude);        
+            marker.infoWindowTemplate = "sos";
+            marker.userData = {
+                index: 1,            
+                summary: sos.summary,
+            };
+            var icon = new Image();
+            icon.imageSource = new ImageSource();
+            icon.imageSource.fromResource("marker_sos");                
+            marker.icon = icon;
+            this.mapView.addMarker(marker);
+        });       
+        
     }
 
     petToMarker(pet : LostPet) {
