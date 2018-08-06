@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { LostPet } from '../models/lost-pet';
 import { SpatialLocation } from '~/models/spatial-location';
 import { PetType } from '~/models/pet-type';
+import { SosReport } from '~/models/sos-report';
 
 @Injectable()
 export class LostPetsRepository {
     public lostPets : Array<LostPet> = [];
+    public sosReports : Array<SosReport> = [];
     
     constructor(){
         var a = new LostPet();        

@@ -6,10 +6,36 @@
 	</ActionItem>
 </ActionBar>
 
-<StackLayout orientation="horizontal">
-	<picture-picker></picture-picker>
-	<picture-picker></picture-picker>
-	<picture-picker></picture-picker>
-	<picture-picker></picture-picker>
-	<picture-picker></picture-picker>
-</StackLayout>
+<ScrollView>
+	<StackLayout class="page page-content" tkMainContent>
+		<RadDataForm tkExampleTitle [source]="sosReport">
+			<TKEntityProperty tkDataFormProperty name="comments" displayName="פרטי אירוע" index="5">
+				<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
+			</TKEntityProperty>
+			<TKPropertyGroup tkDataFormGroups name="פרטים אישיים" hidden="false">
+				<TKEntityProperty tkPropertyGroupProperties name="reporterName" index="7" displayName="שם פרטי">
+					<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
+				</TKEntityProperty>
+				<TKEntityProperty tkPropertyGroupProperties name="reporterPhoneNumber" index="8" displayName="טלפון" required="true">
+					<TKPropertyEditor tkEntityPropertyEditor type="Phone"></TKPropertyEditor>
+				</TKEntityProperty>
+				<TKEntityProperty tkPropertyGroupProperties name="reporterEmail" index="9" displayName="אימייל">
+					<TKPropertyEditor tkEntityPropertyEditor type="Email"></TKPropertyEditor>
+				</TKEntityProperty>
+			</TKPropertyGroup>
+			<TKEntityProperty tkDataFormProperty name="pictures" index="8" displayName="" hidden="true">
+			</TKEntityProperty>
+			<TKEntityProperty tkDataFormProperty name="picturesBase64" index="9" displayName="" hidden="true">
+			</TKEntityProperty>
+		</RadDataForm>
+		<Label text="הוסף תמונות"></Label>
+		<StackLayout orientation="horizontal">
+			<picture-picker (imageSelect)="setPicture($event, 0)"></picture-picker>
+			<picture-picker (imageSelect)="setPicture($event, 1)"></picture-picker>
+			<picture-picker (imageSelect)="setPicture($event, 2)"></picture-picker>
+			<picture-picker (imageSelect)="setPicture($event, 3)"></picture-picker>
+			<picture-picker (imageSelect)="setPicture($event, 4)"></picture-picker>
+		</StackLayout>
+		<Button text="הוסף דיווח" (tap)="addReport()"></Button>
+	</StackLayout>
+</ScrollView>
