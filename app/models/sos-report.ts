@@ -12,6 +12,9 @@ export class SosReport {
     picturesBase64: Array<string>;
     lastSeenLocation: SpatialLocation;
     since: string;
+    latitude: number;
+    longtitude: number;
+    summary: string;
 
     constructor() {
         this.comments = "";

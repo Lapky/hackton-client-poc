@@ -49,6 +49,33 @@ export class LostPetsRepository {
         d.lastSeenLocation.longtitude = 34.7936282
         d.since = "לפני 14 ימים";
         this.lostPets.push(d);
-        
+
+        this.sosReports = [{
+            latitude: 32.0674,
+            longtitude: 34.795,
+            summary: "חתול תקוע על עץ"
+        },
+        {
+            latitude: 32.06745,
+            longtitude: 34.797,
+            summary: "חתול בתוך בור ביוב"
+        },
+        {
+            latitude: 32.068,
+            longtitude: 34.794,
+            summary: "נמר פצוע"
+        },
+        {
+            latitude: 32.067,
+            longtitude: 34.793,
+            summary: "תוכי דרוס"
+        }].map(x => {
+            var sos = new SosReport();
+            sos.lastSeenLocation = new SpatialLocation();
+            sos.lastSeenLocation.latitude = x.latitude;
+            sos.lastSeenLocation.longtitude = x.longtitude;
+            sos.summary = x.summary;
+            return sos;
+        });        
     }
 }
