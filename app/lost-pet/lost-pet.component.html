@@ -54,6 +54,9 @@
 			<picture-picker (imageSelect)="setPicture($event, 3)"></picture-picker>
 			<picture-picker (imageSelect)="setPicture($event, 4)"></picture-picker>
 		</StackLayout>
+		<MapView #mapView [latitude]="latitude" [longitude]="longitude" 
+			[zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom" [bearing]="bearing"
+			[tilt]="tilt" i-padding="50,50,50,50" [padding]="padding" (mapReady)="onMapReady($event)"></MapView>  
 		<Button text="הוסף דיווח" (tap)="addPet()"></Button>
 	</StackLayout>
 </ScrollView>
