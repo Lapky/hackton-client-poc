@@ -6,7 +6,7 @@
 	</ActionItem>
 </ActionBar>
 
-<GridLayout class="page page-content" tkMainContent>
-	<Label class="page-icon fa" text="nooo"></Label>
-	<Label class="page-placeholder" text="????"></Label>
-</GridLayout>
+<StackLayout>
+	<Button text="Take a Picture! 📷" class="btn btn-primary" marginTop="20" (tap)="takePicture()"></Button>
+	<Image [src]="pictureFromCamera"></Image>
+</StackLayout>
