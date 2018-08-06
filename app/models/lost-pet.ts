@@ -3,6 +3,7 @@ import { SpatialLocation } from './spatial-location';
 
 export class LostPet {
     id: string;
+    isLost: boolean;
     name: string;
     color: string;
     breed: string;
@@ -17,4 +18,20 @@ export class LostPet {
     lastSeenLocation: SpatialLocation;
     since: string;
     image: string;
+
+    constructor() {
+        this.isLost = true;
+        this.name = "";
+        this.color = "";
+        this.breed = "";
+        this.comments = "";
+        this.type = PetType.dog;
+        // this.creationTime = new Date();
+        // this.lastUpdateTime = new Date();
+        this.ownerName = "";
+        this.ownerEmail = "";
+        this.ownerPhoneNumber = 0;
+        // this.pictures = [];//new Array<string>();
+        // this.lastSeenLocation = new SpatialLocation();
+    }
 }
