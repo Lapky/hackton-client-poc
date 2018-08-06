@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.286.2",
     "file-type": "^8.1.0",
     "moment": "^2.22.2",
     "mongodb": "^3.1.1",

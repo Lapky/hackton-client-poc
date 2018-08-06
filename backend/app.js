@@ -87,36 +87,21 @@ async function processCrudActionAsync({ verb, query, body, collectionName }) {
     return result;
 }
 
-async function uploadPicturesAsync(picturesArray, done) {
+async function uploadPicturesAsync(picturesArray) {
     const s3 = new AWS.S3();
 
     for (let i = 0; i < picturesArray.length; i++) {
         const params = createFileParams(picturesArray[i]);
-        picturesArray[i] = params.Key;
+        picturesArray[i] = 'https://s3.eu-central-1.amazonaws.com/x-dogs-cats-hackathon/' + params.Key;
 
         try {
             await s3.putObject(params).promise();
             console.log('S3 UPLOAD SUCCEEDED!');
         } catch (err) {
             console.log('S3 UPLOAD FAILED: ', err.message);
+            throw err;
         }
     }
-}
-
-function connectToDbAsync() {
-
-    // Connection URL. This is where your mongodb server is running.
-    let url = constants.MONGODB_URI;
-    return new Promise((resolve, reject) => {
-        // Use connect method to connect to the Server
-        mongoClient.connect(url, (err, db) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(db);
-            }
-        });
-    });
 }
 
 function createFileParams(base64String) {
@@ -133,7 +118,7 @@ function createFileParams(base64String) {
     console.log('PICTURE:', fileFullName);
 
     return {
-        Bucket: 'x.dogs.cats.hackathon',
+        Bucket: 'x-dogs-cats-hackathon',
         Key: fileFullName,
         Body: buffer
     };
