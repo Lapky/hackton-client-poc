@@ -40,13 +40,16 @@ export class MapComponent {
     onMapReady(event) {
         console.log('Map Ready, retrieving pets...');
         this.mapView = event.object;
-        this.mapView.infoWindowTemplates = `        <template key="lostPet">
-        <StackLayout orientation="vertical" width="160" height="160" >
-            <Image src="https://drmartybecker.com/wp-content/uploads/2017/03/bigstock-Mixed-Breed-Dog-Looking-Sidewa-136323740.jpg" stretch="fill"  height="100" width="100" className="infoWindowImage"></Image>
-            <Label text="{{title}}" className="title" width="125" ></Label>
-            <Label text="{{snippet}}" className="breed" width="125"   ></Label>
-            <Label text="{{lastSeen}}" className="last-seen" width="125"   ></Label>                
-        </StackLayout>
+        this.mapView.infoWindowTemplates = `<template key="lostPet" class="gavno-pet">
+		<GridLayout class="gavno-pet" columns="110, *, auto" rows="auto, auto, 1, auto">
+			<Image src="https://images.pexels.com/photos/407082/dog-face-labrador-smile-407082.jpeg?auto=compress&cs=tinysrgb&h=150"
+			 rowSpan="4" height="120" margin="3" verticalAlignment="top" className="infoWindowImage"></Image>
+			<Label text="{{userData.name}}" className="section name" width="auto" col="1" colSpan="2"></Label>			
+			<Label text="{{userData.since}}" className="section since" width="auto" row="1" col="1" colSpan="2"></Label>
+			<StackLayout col="1" row="2" backgroundColor="#E2E6EB"></StackLayout>
+			<Label text="פרטים" className="section details" width="auto" row="3" col="1" ></Label>
+			<Label text="שיתוף" className="section share" width="auto" row="3" col="2" ></Label>
+        </GridLayout>
     </template>`;
         this.reloadMarkers();
     }
@@ -58,12 +61,16 @@ export class MapComponent {
 
     petToMarker(pet : LostPet) {
         console.log("RECEIVED LOST PET! " + pet.name)        
-        var marker = new Marker();
-        marker.position = Position.positionFromLatLng(pet.lastSeenLocation.latitude, pet.lastSeenLocation.longtitude);
-        marker.title = pet.name + " (" + pet.type + ")";
-        marker.snippet = "Breed: " + pet.breed;
+        var marker = new Marker();        
+        marker.position = Position.positionFromLatLng(pet.lastSeenLocation.latitude, pet.lastSeenLocation.longtitude);        
         marker.infoWindowTemplate = "lostPet";
-        marker.userData = {index: 1};
+        marker.userData = {
+            index: 1,
+            breed: pet.breed,
+            name: pet.name,
+            type: pet.type,
+            since: pet.since
+        };
 
         this.mapView.addMarker(marker);
     }
