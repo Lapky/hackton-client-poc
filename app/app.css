@@ -1,9 +1,16 @@
 @import 'nativescript-theme-core/css/core.light.css';
 @import 'nativescript-theme-core/css/blue.css';
 
+
 .fa {
     font-family: "FontAwesome";
-    background-color: green;
+}
+
+.fa-header {
+    background-color: #9ccc65;
+}
+.action-bar{
+    background-color: #9ccc65; 
 }
 
 .page-content .page-placeholder {
@@ -27,7 +34,7 @@
     color: #022734;
 }
 .sidedrawer.sidedrawer-left {
-    background-color: #3A53FF;
+    background-color: #9ccc65;
 }
 .sidedrawer.sidedrawer-left .sidedrawer-header-image {
     color: #F8F8F8;
@@ -42,7 +49,7 @@
     color: rgba(255,255,255,0.5);
 }
 .sidedrawer .sidedrawer-header {
-    background-color: #3A53FF;
+    background-color: #9ccc65;
 }
 .sidedrawer .sidedrawer-header .sidedrawer-header-brand {
     color: #fff;
@@ -67,6 +74,7 @@
 .sidedrawer .sidedrawer-content .sidedrawer-list-item.selected Label {
     color:#3A53FF;
 }
+
  
 .gavno-pet {
     font-size: 20;
