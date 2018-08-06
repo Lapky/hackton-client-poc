@@ -54,7 +54,7 @@ export class MapComponent {
 			<Label text="שיתוף" className="section share" width="auto" row="3" col="2" ></Label>
         </GridLayout>
     </template><template key="sos" class="gavno-pet">
-    <GridLayout class="gavno-pet" columns="110, *, auto" rows="auto, auto, 1, auto">        
+    <GridLayout class="gavno-pet" columns="auto, *, auto" rows="auto, auto, 1, auto">        
         <Label text="מצוקה" className="section name" width="auto" col="1" colSpan="2"></Label>			
         <Label text="{{userData.summary}}" className="section since" width="auto" row="1" col="1" colSpan="2"></Label>
         <StackLayout col="1" row="2" backgroundColor="#E2E6EB"></StackLayout>
@@ -76,8 +76,13 @@ export class MapComponent {
         },
         {
             latitude: 32.06745,
-            longtitude: 34.796,
+            longtitude: 34.797,
             summary: "חתול בתוך בור ביוב"
+        },
+        {
+            latitude: 32.068,
+            longtitude: 34.794,
+            summary: "נמר פצוע"
         },
         ].forEach(sos => {
             var marker = new Marker();        
