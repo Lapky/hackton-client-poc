@@ -8,6 +8,7 @@ import { LostPetsProviderService } from "../services/lost-pets-provider.service"
 import { LostPet } from '~/models/lost-pet';
 import { Image } from 'tns-core-modules/ui/image/image';
 import { ImageSource } from 'tns-core-modules/image-source/image-source';
+import { SosReportsProviderService } from '~/services/sos-reports-provider.service';
 
 registerElement("Fab", () => Fab);
 registerElement('MapView', () => MapView);
@@ -30,7 +31,7 @@ export class MapComponent {
     mapView: MapView & { infoWindowTemplates: string };
     lastCamera: String;
 
-    constructor(private lostPetsProviderService: LostPetsProviderService) {        
+    constructor(private lostPetsProviderService: LostPetsProviderService, private sosReportsProviderService : SosReportsProviderService) {        
     }
 
     async ngOnInit() {
@@ -68,25 +69,10 @@ export class MapComponent {
     reloadMarkers() {
         this.mapView.removeAllMarkers();
         this.lostPetsProviderService.getLostPetsInArea().subscribe(lostPet => this.petToMarker(lostPet));
-
-        [{
-            latitude: 32.0674,
-            longtitude: 34.795,
-            summary: "חתול תקוע על עץ"
-        },
-        {
-            latitude: 32.06745,
-            longtitude: 34.797,
-            summary: "חתול בתוך בור ביוב"
-        },
-        {
-            latitude: 32.068,
-            longtitude: 34.794,
-            summary: "נמר פצוע"
-        },
-        ].forEach(sos => {
+        var self = this;
+        this.sosReportsProviderService.getSosReportsInArea().subscribe(sos => {
             var marker = new Marker();        
-            marker.position = Position.positionFromLatLng(sos.latitude, sos.longtitude);        
+            marker.position = Position.positionFromLatLng(sos.lastSeenLocation.latitude, sos.lastSeenLocation.longtitude);        
             marker.infoWindowTemplate = "sos";
             marker.userData = {
                 index: 1,            
@@ -96,7 +82,7 @@ export class MapComponent {
             icon.imageSource = new ImageSource();
             icon.imageSource.fromResource("marker_sos");                
             marker.icon = icon;
-            this.mapView.addMarker(marker);
+            self.mapView.addMarker(marker);
         });       
         
     }
