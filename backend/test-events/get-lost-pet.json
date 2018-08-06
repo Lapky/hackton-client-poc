@@ -1,0 +1,8 @@
+{
+    "httpMethod": "GET",
+    "queryStringParameters": {
+        "action": "lost-pet",
+        "radius": 3000,
+        "hoursago": 12
+    }
+}
