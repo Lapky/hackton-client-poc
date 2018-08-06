@@ -6,7 +6,20 @@
 	</ActionItem>
 </ActionBar>
 
-<GridLayout class="page page-content" tkMainContent>
-	<Label class="page-icon fa" text="yes"></Label>
-	<Label class="page-placeholder" text="ORGANIZATIONS!"></Label>
+<GridLayout rows="*,60">
+	<ListView row="0" [items]="organizations">
+		<ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+			<StackLayout [class.odd]="odd" [class.even]="even">
+				<Label class="organization-name" [text]='item.name'></Label>
+				<Label class="organization-address" [text]='item.address'></Label>
+				<Label class="organization-phone" [text]='item.phone'></Label>
+				<Label class="organization-email" [text]='item.email'></Label>
+				<StackLayout orientation="horizontal">
+					<Button width="50%" class="action-button organization-website" text='אתר' (tap)="goToLink(item.website)"></Button>
+					<Button width="50%" class="action-button organization-donation" text='תרומה' (tap)="goToLink(item.donationLink)"></Button>
+				</StackLayout>
+			</StackLayout>
+		</ng-template>
+	</ListView>
+	<Button row="1" class="update-organizations" text='מצאת טעות / חסרה עמותה? &#xa; לחץ כאן ליצירת קשר' (tap)="goToLink('mailto:rita.g@walkme.com')"></Button>
 </GridLayout>

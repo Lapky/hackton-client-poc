@@ -12,6 +12,7 @@ import { LostPetsReporterService } from '~/services/lost-pets-reporter.service';
 import { LostPetComponent } from '~/lost-pet/lost-pet.component';
 import { SosReportComponent } from '~/sos-report/sos-report.component';
 import { OrganizationsComponent } from '~/organizations/organizations.component';
+import { OrganizationsRepository } from "~/organizations/organizations-repository";
 
 @NgModule({
     bootstrap: [
@@ -37,7 +38,8 @@ import { OrganizationsComponent } from '~/organizations/organizations.component'
         LapkyServerService,
         LostPetsProviderService,
         LostPetsReporterService,
-        LostPetsRepository
+        LostPetsRepository,
+        OrganizationsRepository
     ]
 })
 export class AppModule { }
