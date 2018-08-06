@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import * as app from "application";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { Mediafilepicker, MediaFilepickerOptions } from 'nativescript-mediafilepicker';
@@ -14,7 +14,7 @@ import { Image } from '../../node_modules/tns-core-modules/ui/image/image';
 export class PicturePickerComponent {
     private mediafilepicker: Mediafilepicker;
     @ViewChild("selectedImage") selectedImageRef: ElementRef;
-    public selectedImageBase64: string;
+    @Output() imageSelect:EventEmitter<string> = new EventEmitter();
 
     constructor() {
         this.mediafilepicker = new Mediafilepicker();
@@ -48,7 +48,7 @@ export class PicturePickerComponent {
                 let selectedImage = <Image>self.selectedImageRef.nativeElement;
                 selectedImage.src = null;
                 selectedImage.imageSource = imageSource;
-                self.selectedImageBase64 = base64;
+                self.imageSelect.next(base64);
             } else {
                 console.log("There was some problem to select the file. Looks like user has cancel it.")
             }

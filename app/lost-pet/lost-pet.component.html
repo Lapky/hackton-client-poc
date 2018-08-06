@@ -48,11 +48,11 @@
 		</RadDataForm>
 		<Label text="הוסף תמונות של החיה"></Label>
 		<StackLayout orientation="horizontal">
-			<picture-picker [(selectedImageBase64)]="lostPet.picturesBase64[0]"></picture-picker>
-			<picture-picker [(selectedImageBase64)]="lostPet.picturesBase64[1]"></picture-picker>
-			<picture-picker [(selectedImageBase64)]="lostPet.picturesBase64[2]"></picture-picker>
-			<picture-picker [(selectedImageBase64)]="lostPet.picturesBase64[3]"></picture-picker>
-			<picture-picker [(selectedImageBase64)]="lostPet.picturesBase64[4]"></picture-picker>
+			<picture-picker (imageSelect)="setPicture($event, 0)"></picture-picker>
+			<picture-picker (imageSelect)="setPicture($event, 1)"></picture-picker>
+			<picture-picker (imageSelect)="setPicture($event, 2)"></picture-picker>
+			<picture-picker (imageSelect)="setPicture($event, 3)"></picture-picker>
+			<picture-picker (imageSelect)="setPicture($event, 4)"></picture-picker>
 		</StackLayout>
 		<Button text="הוסף דיווח" (tap)="addPet()"></Button>
 	</StackLayout>

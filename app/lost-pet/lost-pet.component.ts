@@ -33,11 +33,17 @@ export class LostPetComponent implements OnInit {
   }
 
   addPet() {
+    console.log(this.lostPet)
     this.lostPetsReporterService.report(this.lostPet);
   }
 
   onDrawerButtonTap(): void {
     const sideDrawer = <RadSideDrawer>app.getRootView();
     sideDrawer.showDrawer();
+  }
+
+  setPicture(pictureBase64, index) {
+    console.log("GOT PICTURE", pictureBase64)
+    this.lostPet.picturesBase64[index] = pictureBase64;
   }
 }
