@@ -10,6 +10,9 @@ android {
     generatedDensities = []
     applicationId = "org.nativescript.blankng"  
   }  
+    project.ext {
+    googlePlayServicesVersion = "12.0.1"
+  }
   aaptOptions {  
     additionalParameters "--no-version-vectors"  
   }  

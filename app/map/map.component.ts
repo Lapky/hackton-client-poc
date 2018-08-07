@@ -1,3 +1,4 @@
+import * as geoLocation from "nativescript-geolocation";
 import {Component, ViewChild, OnInit} from '@angular/core';
 import * as app from "application";
 import { registerElement } from 'nativescript-angular/element-registry';
@@ -33,10 +34,38 @@ export class MapComponent {
     mapView: MapView & { infoWindowTemplates: string };
     lastCamera: String;
 
+    enableLocationServices(): void {
+        geoLocation.isEnabled().then(enabled => {
+            if (!enabled) {
+              console.log("fuck");
+                geoLocation.enableLocationRequest().then(() => this.getDeviceLocation());
+            } else {
+              console.log("not fuck");
+            }
+        });
+    }
+    
+    private getDeviceLocation(): Promise<any> {
+      return new Promise((resolve, reject) => {
+        geoLocation.enableLocationRequest().then(() => {
+          geoLocation.getCurrentLocation({timeout: 10000}).then(location => {
+                  resolve(location);
+              }).catch(error => {
+                  reject(error);
+              });
+          });
+      });
+    }
+
     constructor(private lostPetsProviderService: LostPetsProviderService, private sosReportsProviderService : SosReportsProviderService) {        
     }
 
     async ngOnInit() {
+    this.enableLocationServices();
+    this.getDeviceLocation().then(res => {
+        this.latitude=res.latitude;
+        this.longitude = res.longitude;
+    });
         const sideDrawer = <RadSideDrawer>app.getRootView();
         if (sideDrawer)
             sideDrawer.closeDrawer();

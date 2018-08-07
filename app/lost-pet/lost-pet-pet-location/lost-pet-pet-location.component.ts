@@ -1,3 +1,4 @@
+import * as geoLocation from "nativescript-geolocation";
 import { Component, OnInit, Input } from '@angular/core';
 import { LostPet } from '~/models/lost-pet';
 import { SpatialLocation } from '~/models/spatial-location';
@@ -10,6 +11,7 @@ import { MapView, Marker } from 'nativescript-google-maps-sdk';
   providers: []
 })
 export class LostPetPetLocationComponent implements OnInit {
+  currentGeoLocation: any;
   @Input() lostPet: LostPet;
 
   latitude = 32.0672359;
@@ -23,12 +25,39 @@ export class LostPetPetLocationComponent implements OnInit {
   mapView: MapView & { infoWindowTemplates: string };
   lastCamera: String;
 
+  enableLocationServices(): void {
+    geoLocation.isEnabled().then(enabled => {
+        if (!enabled) {
+          console.log("fuck");
+            geoLocation.enableLocationRequest().then(() => this.getDeviceLocation());
+        } else {
+          console.log("not fuck");
+        }
+    });
+}
+
+private getDeviceLocation(): Promise<any> {
+  return new Promise((resolve, reject) => {
+    geoLocation.enableLocationRequest().then(() => {
+      geoLocation.getCurrentLocation({timeout: 10000}).then(location => {
+              resolve(location);
+          }).catch(error => {
+              reject(error);
+          });
+      });
+  });
+}
+
   constructor() {
   }
 
   ngOnInit(): void {
+    this.enableLocationServices();
+    this.getDeviceLocation().then(res=>{
+        this.latitude=res.latitude;
+        this.longitude = res.longitude;
+    });
   }
-
   onMapReady(event) {
     this.mapView = event.object;
   }
