@@ -21,6 +21,10 @@ import { OrganizationsRepository } from "~/organizations/organizations-repositor
 import { SosReportsProviderService } from "~/services/sos-reports-provider.service";
 import { SosReporterService } from "~/services/sos-reporter.service";
 
+import { LostPetOwnerDetailsComponent } from '~/lost-pet/lost-pet-owner-details/lost-pet-owner-details.component';
+import { LostPetPetPicturesComponent } from '~/lost-pet/lost-pet-pet-pictures/lost-pet-pet-pictures.component';
+import { LostPetPetDetailsComponent } from '~/lost-pet/lost-pet-pet-details/lost-pet-pet-details.component';
+import { LostPetPetLocationComponent } from '~/lost-pet/lost-pet-pet-location/lost-pet-pet-location.component';
 import { LostPetComponent } from '~/lost-pet/lost-pet.component';
 import { SosReportComponent } from '~/sos-report/sos-report.component';
 import { PicturePickerComponent } from '~/picture-picker/picture-picker.component';
@@ -49,7 +53,11 @@ import { OrganizationsComponent } from '~/organizations/organizations.component'
         LostPetComponent,
         SosReportComponent,
         OrganizationsComponent,
-        PicturePickerComponent
+        PicturePickerComponent,
+        LostPetPetDetailsComponent,
+        LostPetPetPicturesComponent,
+        LostPetPetLocationComponent,
+        LostPetOwnerDetailsComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

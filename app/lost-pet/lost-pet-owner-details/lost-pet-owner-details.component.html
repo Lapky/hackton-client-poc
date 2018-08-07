@@ -1,0 +1,34 @@
+<ScrollView>
+	<StackLayout class="page page-content" tkMainContent>
+		<RadDataForm tkExampleTitle [source]="lostPet">
+			<TKPropertyGroup tkDataFormGroups name="פרטים אישיים" hidden="false">
+				<TKEntityProperty tkPropertyGroupProperties name="ownerName" index="0" displayName="שם פרטי">
+					<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
+				</TKEntityProperty>
+				<TKEntityProperty tkPropertyGroupProperties name="ownerPhoneNumber" index="1" displayName="טלפון" required="true">
+					<TKPropertyEditor tkEntityPropertyEditor type="Phone"></TKPropertyEditor>
+				</TKEntityProperty>
+				<TKEntityProperty tkPropertyGroupProperties name="ownerEmail" index="2" displayName="אימייל">
+					<TKPropertyEditor tkEntityPropertyEditor type="Email"></TKPropertyEditor>
+				</TKEntityProperty>
+			</TKPropertyGroup>
+
+			<TKEntityProperty tkDataFormProperty name="pictures" index="8" displayName="" hidden="true">
+			</TKEntityProperty>
+			<TKEntityProperty tkDataFormProperty name="picturesBase64" index="9" displayName="" hidden="true">
+			</TKEntityProperty>
+			<TKEntityProperty tkDataFormProperty name="isLost" index="8" displayName="" hidden="true">
+			</TKEntityProperty>
+			<TKEntityProperty tkDataFormProperty name="type" index="8" displayName="" hidden="true">
+			</TKEntityProperty>
+			<TKEntityProperty tkDataFormProperty name="name" index="8" displayName="" hidden="true">
+			</TKEntityProperty>
+			<TKEntityProperty tkDataFormProperty name="color" index="8" displayName="" hidden="true">
+			</TKEntityProperty>
+			<TKEntityProperty tkDataFormProperty name="breed" index="8" displayName="" hidden="true">
+			</TKEntityProperty>
+			<TKEntityProperty tkDataFormProperty name="comments" index="8" displayName="" hidden="true">
+			</TKEntityProperty>
+		</RadDataForm>
+	</StackLayout>
+</ScrollView>

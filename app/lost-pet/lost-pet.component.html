@@ -1,4 +1,4 @@
-<ActionBar title="איפה הכלב" class="action-bar">
+<ActionBar title="איפה הכלב - דיווח על חיה" class="action-bar">
 	<ActionItem>
 		<StackLayout>
 			<Button class="fa" text="&#xf0c9;" fontSize="20" (tap)="onDrawerButtonTap()"></Button>
@@ -6,59 +6,24 @@
 	</ActionItem>
 </ActionBar>
 
-<ScrollView>
-	<StackLayout class="page page-content" tkMainContent>
-		<RadDataForm tkExampleTitle [source]="lostPet">
-			<TKEntityProperty tkDataFormProperty name="isLost" displayName="" index="0" valuesProvider="מצאתי את החיה, איבדתי את החיה"
-			 required="true">
-				<TKPropertyEditor tkEntityPropertyEditor type="SegmentedEditor"></TKPropertyEditor>
-			</TKEntityProperty>
-			<TKPropertyGroup tkDataFormGroups name="פרטי חיה" hidden="false">
-				<TKEntityProperty tkPropertyGroupProperties name="type" displayName="סוג" index="1" valuesProvider="כלב, חתול" required="true">
-					<TKPropertyEditor tkEntityPropertyEditor type="SegmentedEditor"></TKPropertyEditor>
-				</TKEntityProperty>
-				<TKEntityProperty tkPropertyGroupProperties name="name" displayName="שם" index="2" required="true">
-					<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
-				</TKEntityProperty>
-				<TKEntityProperty tkPropertyGroupProperties name="color" displayName="צבע" index="3" required="true">
-					<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
-				</TKEntityProperty>
-				<TKEntityProperty tkPropertyGroupProperties name="breed" displayName="גזע" index="4">
-					<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
-				</TKEntityProperty>
-				<TKEntityProperty tkPropertyGroupProperties name="comments" displayName="תיאור" index="5">
-					<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
-				</TKEntityProperty>
-			</TKPropertyGroup>
-			<TKPropertyGroup tkDataFormGroups name="פרטים אישיים" hidden="false">
-				<TKEntityProperty tkPropertyGroupProperties name="ownerName" index="7" displayName="שם פרטי">
-					<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
-				</TKEntityProperty>
-				<TKEntityProperty tkPropertyGroupProperties name="ownerPhoneNumber" index="8" displayName="טלפון" required="true">
-					<TKPropertyEditor tkEntityPropertyEditor type="Phone"></TKPropertyEditor>
-				</TKEntityProperty>
-				<TKEntityProperty tkPropertyGroupProperties name="ownerEmail" index="9" displayName="אימייל">
-					<TKPropertyEditor tkEntityPropertyEditor type="Email"></TKPropertyEditor>
-				</TKEntityProperty>
-			</TKPropertyGroup>
-			<TKEntityProperty tkDataFormProperty name="pictures" index="8" displayName="" hidden="true">
-			</TKEntityProperty>
-			<TKEntityProperty tkDataFormProperty name="picturesBase64" index="9" displayName="" hidden="true">
-			</TKEntityProperty>
-		</RadDataForm>
-		<Label text="הוסף תמונות של החיה"></Label>
-		<StackLayout orientation="horizontal">
-			<picture-picker (imageSelect)="setPicture($event, 0)"></picture-picker>
-			<picture-picker (imageSelect)="setPicture($event, 1)"></picture-picker>
-			<picture-picker (imageSelect)="setPicture($event, 2)"></picture-picker>
-			<picture-picker (imageSelect)="setPicture($event, 3)"></picture-picker>
-			<picture-picker (imageSelect)="setPicture($event, 4)"></picture-picker>
+<GridLayout rows="auto, *, auto, auto" columns="auto, auto">
+	<Progress row="0" col="0" colSpan="2" [value]="((currentStepIndex + 1)/availableSteps.length)*100" (valueChanged)="onValueChanged($event)"
+	 maxValue="100" class="m-20"></Progress>
+	<StackLayout row="1" col="0" colSpan="2">
+		<StackLayout visibility="{{ shouldShowStep('pet-details') ? 'visible' : 'collapse' }}">
+			<lost-pet-pet-details [lostPet]="lostPet"></lost-pet-pet-details>
 		</StackLayout>
-		<MapView #mapView [latitude]="latitude" [longitude]="longitude" 
-			[zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom" [bearing]="bearing"
-			[tilt]="tilt" i-padding="50,50,50,50" [padding]="padding" (mapReady)="onMapReady($event)"
-			(coordinateTapped)="onCoordinateTapped($event)">
-		</MapView>  
-		<Button text="הוסף דיווח" (tap)="addPet()"></Button>
+		<StackLayout visibility="{{ shouldShowStep('pictures') ? 'visible' : 'collapse' }}">
+			<lost-pet-pet-pictures [lostPet]="lostPet"></lost-pet-pet-pictures>
+		</StackLayout>
+		<StackLayout visibility="{{ shouldShowStep('location') ? 'visible' : 'collapse' }}">
+			<lost-pet-pet-location [lostPet]="lostPet"></lost-pet-pet-location>
+		</StackLayout>
+		<StackLayout visibility="{{ shouldShowStep('owner-details') ? 'visible' : 'collapse' }}">
+			<lost-pet-owner-details [lostPet]="lostPet"></lost-pet-owner-details>
+		</StackLayout>
 	</StackLayout>
-</ScrollView>
+	<Button row="2" col="0" colSpan="2" text="הוסף דיווח" (tap)="addPet()" visibility="{{ (currentStepIndex == availableSteps.length -1) ? 'visible' : 'collapse' }}"></Button>
+	<Button row="3" col="0" height="auto" width="50%" text="המשך" (tap)="nextStep()" isEnabled="{{currentStepIndex < availableSteps.length -1}}"></Button>
+	<Button row="3" col="1" height="auto" width="50%" text="חזור" (tap)="previousStep()" isEnabled="{{currentStepIndex > 0}}"></Button>
+</GridLayout>

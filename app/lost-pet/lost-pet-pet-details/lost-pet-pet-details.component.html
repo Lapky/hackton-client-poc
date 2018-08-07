@@ -1,0 +1,37 @@
+<ScrollView>
+	<StackLayout class="page page-content" tkMainContent>
+		<RadDataForm tkExampleTitle [source]="lostPet">
+			<TKEntityProperty tkDataFormProperty name="isLost" displayName="" index="0" valuesProvider="מצאתי את החיה, איבדתי את החיה"
+			 required="true">
+				<TKPropertyEditor tkEntityPropertyEditor type="SegmentedEditor"></TKPropertyEditor>
+			</TKEntityProperty>
+			<TKPropertyGroup tkDataFormGroups name="פרטי חיה" hidden="false">
+				<TKEntityProperty tkPropertyGroupProperties name="type" displayName="סוג" index="1" valuesProvider="כלב, חתול" required="true">
+					<TKPropertyEditor tkEntityPropertyEditor type="SegmentedEditor"></TKPropertyEditor>
+				</TKEntityProperty>
+				<TKEntityProperty tkPropertyGroupProperties name="name" displayName="שם" index="2" required="true">
+					<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
+				</TKEntityProperty>
+				<TKEntityProperty tkPropertyGroupProperties name="color" displayName="צבע" index="3" required="true">
+					<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
+				</TKEntityProperty>
+				<TKEntityProperty tkPropertyGroupProperties name="breed" displayName="גזע" index="4">
+					<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
+				</TKEntityProperty>
+				<TKEntityProperty tkPropertyGroupProperties name="comments" displayName="תיאור" index="5">
+					<TKPropertyEditor tkEntityPropertyEditor type="Text"></TKPropertyEditor>
+				</TKEntityProperty>
+			</TKPropertyGroup>
+			<TKEntityProperty tkDataFormProperty name="ownerName" index="6" displayName="" hidden="true">
+			</TKEntityProperty>
+			<TKEntityProperty tkDataFormProperty name="ownerPhoneNumber" index="7" displayName="" hidden="true">
+			</TKEntityProperty>
+			<TKEntityProperty tkDataFormProperty name="ownerEmail" index="8" displayName="" hidden="true">
+			</TKEntityProperty>
+			<TKEntityProperty tkDataFormProperty name="pictures" index="9" displayName="" hidden="true">
+			</TKEntityProperty>
+			<TKEntityProperty tkDataFormProperty name="picturesBase64" index="10" displayName="" hidden="true">
+			</TKEntityProperty>
+		</RadDataForm>
+	</StackLayout>
+</ScrollView>
