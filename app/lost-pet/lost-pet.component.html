@@ -10,7 +10,7 @@
 	<GridLayout rows="auto, *, auto, auto" columns="auto, auto" visibility="{{ (!isDone) ? 'visible' : 'collapse' }}">
 		<Progress row="0" col="0" colSpan="2" [value]="((currentStepIndex + 1)/availableSteps.length)*100" (valueChanged)="onValueChanged($event)"
 		 maxValue="100" class="m-20"></Progress>
-		<StackLayout row="1" col="0" colSpan="2">
+		<StackLayout row="1" col="0" colSpan="2" width="100%">
 			<StackLayout visibility="{{ shouldShowStep('pet-details') ? 'visible' : 'collapse' }}">
 				<lost-pet-pet-details [lostPet]="lostPet"></lost-pet-pet-details>
 			</StackLayout>
@@ -28,7 +28,7 @@
 		<Button row="3" col="0" height="auto" width="50%" text="המשך" (tap)="nextStep()" isEnabled="{{currentStepIndex < availableSteps.length -1}}"></Button>
 		<Button row="3" col="1" height="auto" width="50%" text="חזור" (tap)="previousStep()" isEnabled="{{currentStepIndex > 0}}"></Button>
 	</GridLayout>
-	<StackLayout visibility="{{ (isDone) ? 'visible' : 'collapse' }}">
+	 <StackLayout visibility="{{ (isDone) ? 'visible' : 'collapse' }}">
 		<label fontSize="20" text="דיווח התווסף בהצלחה!"></label>
 		<button text="חזרה למפה" [nsRouterLink]="['/map']"></button>
 	</StackLayout>
