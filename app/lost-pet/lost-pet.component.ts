@@ -50,10 +50,7 @@ export class LostPetComponent implements OnInit {
   }
 
   addPet() {
-    console.log(this.lostPet)
-    this.lostPet.lastSeenLocation = new SpatialLocation();
-    this.lostPet.lastSeenLocation.latitude = 32.0675697;
-    this.lostPet.lastSeenLocation.longtitude = 34.7936282
+    console.log(this.lostPet)    
     this.lostPetsReporterService.report(this.lostPet);
   }
 
