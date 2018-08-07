@@ -6,24 +6,30 @@
 	</ActionItem>
 </ActionBar>
 
-<GridLayout rows="auto, *, auto, auto" columns="auto, auto">
-	<Progress row="0" col="0" colSpan="2" [value]="((currentStepIndex + 1)/availableSteps.length)*100" (valueChanged)="onValueChanged($event)"
-	 maxValue="100" class="m-20"></Progress>
-	<StackLayout row="1" col="0" colSpan="2">
-		<StackLayout visibility="{{ shouldShowStep('pet-details') ? 'visible' : 'collapse' }}">
-			<lost-pet-pet-details [lostPet]="lostPet"></lost-pet-pet-details>
+<StackLayout>
+	<GridLayout rows="auto, *, auto, auto" columns="auto, auto" visibility="{{ (!isDone) ? 'visible' : 'collapse' }}">
+		<Progress row="0" col="0" colSpan="2" [value]="((currentStepIndex + 1)/availableSteps.length)*100" (valueChanged)="onValueChanged($event)"
+		 maxValue="100" class="m-20"></Progress>
+		<StackLayout row="1" col="0" colSpan="2">
+			<StackLayout visibility="{{ shouldShowStep('pet-details') ? 'visible' : 'collapse' }}">
+				<lost-pet-pet-details [lostPet]="lostPet"></lost-pet-pet-details>
+			</StackLayout>
+			<StackLayout visibility="{{ shouldShowStep('pictures') ? 'visible' : 'collapse' }}">
+				<lost-pet-pet-pictures [lostPet]="lostPet"></lost-pet-pet-pictures>
+			</StackLayout>
+			<StackLayout visibility="{{ shouldShowStep('location') ? 'visible' : 'collapse' }}">
+				<lost-pet-pet-location [lostPet]="lostPet"></lost-pet-pet-location>
+			</StackLayout>
+			<StackLayout visibility="{{ shouldShowStep('owner-details') ? 'visible' : 'collapse' }}">
+				<lost-pet-owner-details [lostPet]="lostPet"></lost-pet-owner-details>
+			</StackLayout>
 		</StackLayout>
-		<StackLayout visibility="{{ shouldShowStep('pictures') ? 'visible' : 'collapse' }}">
-			<lost-pet-pet-pictures [lostPet]="lostPet"></lost-pet-pet-pictures>
-		</StackLayout>
-		<StackLayout visibility="{{ shouldShowStep('location') ? 'visible' : 'collapse' }}">
-			<lost-pet-pet-location [lostPet]="lostPet"></lost-pet-pet-location>
-		</StackLayout>
-		<StackLayout visibility="{{ shouldShowStep('owner-details') ? 'visible' : 'collapse' }}">
-			<lost-pet-owner-details [lostPet]="lostPet"></lost-pet-owner-details>
-		</StackLayout>
+		<Button row="2" col="0" colSpan="2" text="הוסף דיווח" (tap)="addPet()" visibility="{{ (currentStepIndex == availableSteps.length -1) ? 'visible' : 'collapse' }}"></Button>
+		<Button row="3" col="0" height="auto" width="50%" text="המשך" (tap)="nextStep()" isEnabled="{{currentStepIndex < availableSteps.length -1}}"></Button>
+		<Button row="3" col="1" height="auto" width="50%" text="חזור" (tap)="previousStep()" isEnabled="{{currentStepIndex > 0}}"></Button>
+	</GridLayout>
+	<StackLayout visibility="{{ (isDone) ? 'visible' : 'collapse' }}">
+		<label fontSize="20" text="דיווח התווסף בהצלחה!"></label>
+		<button text="חזרה למפה" [nsRouterLink]="['/map']"></button>
 	</StackLayout>
-	<Button row="2" col="0" colSpan="2" text="הוסף דיווח" (tap)="addPet()" visibility="{{ (currentStepIndex == availableSteps.length -1) ? 'visible' : 'collapse' }}"></Button>
-	<Button row="3" col="0" height="auto" width="50%" text="המשך" (tap)="nextStep()" isEnabled="{{currentStepIndex < availableSteps.length -1}}"></Button>
-	<Button row="3" col="1" height="auto" width="50%" text="חזור" (tap)="previousStep()" isEnabled="{{currentStepIndex > 0}}"></Button>
-</GridLayout>
+</StackLayout>

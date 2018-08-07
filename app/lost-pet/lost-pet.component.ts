@@ -15,6 +15,7 @@ export class LostPetComponent implements OnInit {
   public lostPet: LostPet = new LostPet();
   public availableSteps : Array<string> = ['pet-details', 'pictures', 'location', 'owner-details'];
   public currentStepIndex : number = 0;
+  public isDone : boolean = false;
 
   constructor(private lostPetsReporterService: LostPetsReporterService) {
   }
@@ -38,6 +39,7 @@ export class LostPetComponent implements OnInit {
   addPet() {
     console.log("Adding pet", this.lostPet)
     this.lostPetsReporterService.report(this.lostPet);
+    this.isDone = true;
   }
 
   onDrawerButtonTap(): void {
