@@ -9,6 +9,8 @@ import { LostPet } from '~/models/lost-pet';
 import { Image } from 'tns-core-modules/ui/image/image';
 import { ImageSource } from 'tns-core-modules/image-source/image-source';
 import { SosReportsProviderService } from '~/services/sos-reports-provider.service';
+import { SpatialLocation } from '~/models/spatial-location';
+import { SosReport } from '~/models/sos-report';
 
 registerElement("Fab", () => Fab);
 registerElement('MapView', () => MapView);
@@ -68,32 +70,21 @@ export class MapComponent {
 
     reloadMarkers() {
         this.mapView.removeAllMarkers();
-        this.lostPetsProviderService.getLostPetsInArea().subscribe(lostPet => this.petToMarker(lostPet));
-        var self = this;
-        this.sosReportsProviderService.getSosReportsInArea().subscribe(sos => {
-            var marker = new Marker();        
-            marker.position = Position.positionFromLatLng(sos.lastSeenLocation.latitude, sos.lastSeenLocation.longtitude);        
-            marker.infoWindowTemplate = "sos";
-            marker.userData = {
-                index: 1,            
-                summary: sos.summary,
-            };
-            var icon = new Image();
-            icon.imageSource = new ImageSource();
-            icon.imageSource.fromResource("marker_sos");                
-            marker.icon = icon;
-            self.mapView.addMarker(marker);
-        });       
-        
+        this.lostPetsProviderService.getLostPetsInArea().subscribe(lostPet => this.lostPetToMarker(lostPet));
+        this.sosReportsProviderService.getSosReportsInArea().subscribe(sos => this.sosToMarker(sos));
     }
 
-    petToMarker(pet : LostPet) {
-        console.log("RECEIVED LOST PET! ", pet)       
-        console.log("pet.lastSeenLocation", pet.lastSeenLocation) 
-        var marker = new Marker();        
-        marker.position = Position.positionFromLatLng(pet.lastSeenLocation.latitude, pet.lastSeenLocation.longtitude);        
-        marker.infoWindowTemplate = "lostPet";
-        marker.userData = {
+    sosToMarker(sos : SosReport) {
+        var userData = {
+            index: 1,            
+            summary: sos.summary,
+        };
+
+        this.addMarker(sos.lastSeenLocation, "sos", userData, "marker_sos");
+    }
+
+    lostPetToMarker(pet : LostPet) {
+        var userData = {
             index: 1,
             breed: pet.breed,
             name: pet.name,
@@ -101,16 +92,27 @@ export class MapComponent {
             since: pet.since,
             image: pet.image
         };
+
+        this.addMarker(pet.lastSeenLocation, "lostPet", userData, "marker_lost");
+    }
+
+    addMarker(location : SpatialLocation, infoWindowTemplate : string, userData : any, iconName : string) {
+        var marker = new Marker();        
+        marker.position = Position.positionFromLatLng(location.latitude, location.longtitude);        
+        marker.infoWindowTemplate = infoWindowTemplate;
+        marker.userData = userData;
+
+        console.log("ADDING MARKER", marker, marker.position.latitude, marker.position.longitude);
+
         var icon = new Image();
         icon.imageSource = new ImageSource();
-        icon.imageSource.fromResource("marker_lost");                
+        icon.imageSource.fromResource(iconName);                
         marker.icon = icon;
 
         this.mapView.addMarker(marker);
     }
 
     onCoordinateTapped(args) {
-        console.log("Coordinate Tapped, Lat: " + args.position.latitude + ", Lon: " + args.position.longitude, args);
     }
 
     onMarkerEvent(args) {
@@ -120,7 +122,6 @@ export class MapComponent {
     }
 
     onCameraChanged(args) {
-        console.log("Camera changed: " + JSON.stringify(args.camera), JSON.stringify(args.camera) === this.lastCamera);
         this.lastCamera = JSON.stringify(args.camera);
     
     }
