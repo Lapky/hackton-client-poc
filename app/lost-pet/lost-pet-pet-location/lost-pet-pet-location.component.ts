@@ -1,4 +1,5 @@
 import * as geoLocation from "nativescript-geolocation";
+import { Accuracy } from "ui/enums"; // used to describe at what accuracy the location should be get
 import { Component, OnInit, Input } from '@angular/core';
 import { LostPet } from '~/models/lost-pet';
 import { SpatialLocation } from '~/models/spatial-location';
@@ -39,7 +40,7 @@ export class LostPetPetLocationComponent implements OnInit {
 private getDeviceLocation(): Promise<any> {
   return new Promise((resolve, reject) => {
     geoLocation.enableLocationRequest().then(() => {
-      geoLocation.getCurrentLocation({timeout: 10000}).then(location => {
+      geoLocation.getCurrentLocation({desiredAccuracy: Accuracy.high, maximumAge: 5000, timeout: 20000 }).then(location => {
               resolve(location);
           }).catch(error => {
               reject(error);
@@ -53,13 +54,15 @@ private getDeviceLocation(): Promise<any> {
 
   ngOnInit(): void {
     this.enableLocationServices();
-    this.getDeviceLocation().then(res=>{
+    this.getDeviceLocation().then(res => {
         this.latitude=res.latitude;
         this.longitude = res.longitude;
     });
   }
   onMapReady(event) {
     this.mapView = event.object;
+    this.mapView.myLocationEnabled = true;
+    this.mapView.settings.myLocationButtonEnabled = true;
   }
 
   onCoordinateTapped(args) {
