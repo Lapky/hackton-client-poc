@@ -131,8 +131,6 @@ export class MapComponent {
         marker.infoWindowTemplate = infoWindowTemplate;
         marker.userData = userData;
 
-        console.log("ADDING MARKER", marker, marker.position.latitude, marker.position.longitude);
-
         var icon = new Image();
         icon.imageSource = new ImageSource();
         icon.imageSource.fromResource(iconName);                

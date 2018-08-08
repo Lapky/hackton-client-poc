@@ -13,7 +13,7 @@ import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 })
 export class LostPetComponent implements OnInit {
   public lostPet: LostPet = new LostPet();
-  public availableSteps : Array<string> = ['pet-details', 'pictures', 'location', 'owner-details'];
+  public availableSteps : Array<string> = ['pet-details', 'pictures', 'owner-details'];
   public currentStepIndex : number = 0;
   public isDone : boolean = false;
 

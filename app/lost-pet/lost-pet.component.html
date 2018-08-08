@@ -16,8 +16,6 @@
 			</StackLayout>
 			<StackLayout visibility="{{ shouldShowStep('pictures') ? 'visible' : 'collapse' }}">
 				<lost-pet-pet-pictures [lostPet]="lostPet"></lost-pet-pet-pictures>
-			</StackLayout>
-			<StackLayout visibility="{{ shouldShowStep('location') ? 'visible' : 'collapse' }}">
 				<lost-pet-pet-location [lostPet]="lostPet"></lost-pet-pet-location>
 			</StackLayout>
 			<StackLayout visibility="{{ shouldShowStep('owner-details') ? 'visible' : 'collapse' }}">
